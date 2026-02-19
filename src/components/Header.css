@@ -1,0 +1,87 @@
+.header {
+    background: #0048aa;
+    color: white;
+    padding: 12px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    font-family: Orbitron, Arial, sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.buscador {
+    position: relative;
+    flex: 1;
+    max-width: 450px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#input-busqueda {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: none;
+}
+
+#btn-buscar {
+    padding: 6px 10px;
+    border: none;
+    background: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.usuario a {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.resultados-busqueda {
+    position: absolute;
+    top: 38px;
+    left: 0;
+    right: 0;
+    background: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.resultado-item {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.resultado-item:hover {
+    background: #f0f0f0;
+}
+
+.resultado-enlace {
+    text-decoration: none;
+    color: black;
+}
+
+.cerrarsesion {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+}

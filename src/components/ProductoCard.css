@@ -1,0 +1,44 @@
+.producto-card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.producto-resumen {
+  text-align: center;
+  margin-top: 8px;
+}
+
+.producto-nombre {
+  font-size: 1rem;
+  color: black;
+  margin-bottom: 4px;
+}
+
+.producto-precio {
+  font-weight: bold;
+  color: #193eb8;
+}
+
+.producto-precio-original {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.producto-precio-descuento {
+  font-weight: bold;
+  color: #008000;
+  font-size: 1rem;
+}
+
+.enlace-producto {
+  text-decoration: none;
+}
+
+.producto-img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+}
