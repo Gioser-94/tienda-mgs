@@ -18,11 +18,20 @@ function Carousel() {
         .filter(Boolean)
         
     // Función para ir a la siguiente imagen
+    // Se usa el módulo % porque buscamos el resto de la división, es decir,
+    // cuando el indice es 0 (0 + 1) / 8 = 0,125 pero el resto es 1 por que 
+    // los decimales no importan y en cuando se pone de cociente 0 el resto ya
+    // es 1 y pasa la imagen con el indice 1 en el array de imágenes
     const siguiente = () => {
         setIndice((indice + 1) % imagenes.length) // vuelve a 0 al llegar al final
     }
 
     // Función para ir a la imagen anterior
+    // Igual que la función siguiente pero al contrario, se resta al indice y para
+    // que el indice no sea negativo, se suma la longitud del array, resultado:
+    // si indice es 0 (0 - 1 + 8) / 8 = 0,875 y resto 7, como el ultimo índice del
+    // array es 7, al estar el carousel en la primera imagen con indice 0, si pulsamos
+    // el boton de retroceder, se dirige a la última del array en vez de dar error
     const anterior = () => {
         setIndice((indice - 1 + imagenes.length) % imagenes.length) // vuelve al final si está en 0
     }
