@@ -1,0 +1,42 @@
+/* Productos */
+.productos-destacados {
+  display: flex;
+  justify-content: center;
+}
+
+.grid-productos {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1400px;   /* opcional, para que no quede muy comprimido */
+  margin: 0 auto;
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Tablets grandes o pantallas medianas */
+@media (max-width: 1200px) {
+  .grid-productos {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tablets pequeñas */
+@media (max-width: 900px) {
+  .grid-productos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Móviles grandes */
+@media (max-width: 700px) {
+  .grid-productos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Móviles pequeños */
+@media (max-width: 500px) {
+  .grid-productos {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
