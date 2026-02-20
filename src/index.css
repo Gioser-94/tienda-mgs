@@ -4,3 +4,17 @@ body {
     background-color: #fff;
     color: #333;
 }
+
+input, button, select, textarea, a {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;            
+  flex-direction: column;
+}
+
+.page-wrapper main {
+  flex: 1;                  /* ocupa todo el espacio sobrante */
+}
