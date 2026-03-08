@@ -42,6 +42,11 @@ export class Cliente {
     return regex.test(password);
   }
 
+  static validarTelefono(telefono) {
+    const regexTelefono = /^(\+?\d{1,3}[\s-]?)?\d{9}$/;
+    return regexTelefono.test(telefono);
+  }
+
   /*
    * Devuelve la información del cliente en formato HTML.
    * Puede usarse, por ejemplo, en la página de perfil.
