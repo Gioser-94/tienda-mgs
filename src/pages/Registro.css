@@ -28,12 +28,15 @@ h1 {
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  margin-bottom: 1rem;
 }
 
 .input-form.ng-invalid.ng-touched {
   border-color: #e74c3c;
   background-color: #fdecea;
+}
+
+.input-container {
+  margin-block: 6px;
 }
 
 .botonCrearCuenta {
@@ -53,9 +56,11 @@ h1 {
   cursor: not-allowed;
 }
 
-.error small {
+.error {
+  height: 16px;
   color: #e74c3c;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+  margin-top: 6px;
 }
 
 #radioAceptarPolitica {

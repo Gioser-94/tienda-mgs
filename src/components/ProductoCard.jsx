@@ -29,7 +29,7 @@ function ProductoCard({ producto }) {
                     {producto.descuento > 0 ? (
                         <>
                             <p className="producto-precio-original"><s>{producto.precio.toFixed(2)} €</s></p>
-                            <p className="producto-precio-descuento"><s>{precioFinal.toFixed(2)} € (-{producto.descuento}%)</s></p>
+                            <p className="producto-precio-descuento">{precioFinal.toFixed(2)} € (-{producto.descuento}%)</p>
                         </>
                     ) : (
                         <p className="producto-precio">{producto.precio.toFixed(2)} €</p>

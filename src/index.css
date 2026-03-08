@@ -16,5 +16,7 @@ input, button, select, textarea, a {
 }
 
 .page-wrapper main {
-  flex: 1;                  /* ocupa todo el espacio sobrante */
+  flex: 1;          /* ocupa todo el espacio sobrante */
+  display: flex;
+  flex-direction: column;
 }
