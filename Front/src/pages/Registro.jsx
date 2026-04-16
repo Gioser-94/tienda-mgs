@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Cliente } from '../data/Cliente';
 import './Registro.css'
+import {Link} from 'react-router-dom';
 
 function Registro() {
 
@@ -162,6 +163,7 @@ function Registro() {
                 </div>    
                 <button type="submit" className="botonCrearCuenta">CREAR CUENTA</button><br/>
             </form>
+            <Link to='/login'>¿Ya tienes cuenta? Inicia sesión</Link>
         </div>
     </div>
   )
