@@ -1,15 +1,18 @@
- export class Producto{
-    constructor(id,nombre,descripcion,imagen,precio,tipo,especificaciones={},descuento){
+ export class Producto {
+    constructor(id, nombre, descripcion, precio, stock, imagen, categoria_id, especificaciones = {}, descuento = 0) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
-        this.imagen = imagen;
         this.precio = precio;
-        this.tipo = tipo;
+        this.stock = stock;
+        this.imagen = imagen;
+        this.categoria_id = categoria_id;
         this.especificaciones = especificaciones;
         this.descuento = descuento;
     }
+}
 
+    /* VER COMPATIBILIDAD YA QUE ESTAS FUNCIONES SON A MEDIDA DEL ANTIGUO CONSTRUCTOR
     mostrarResumen() {
         const precioFinal = this.aplicarDescuento(this.descuento);
 
@@ -43,5 +46,4 @@
     esDeCategoria(categoriaBuscada) {
         return this.tipo.toLowerCase() === categoriaBuscada.toLowerCase();
     }
-
-}
+*/

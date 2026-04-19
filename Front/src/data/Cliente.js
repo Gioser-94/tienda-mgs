@@ -1,20 +1,22 @@
 export class Cliente {
-  constructor(id, nombre, email, telefono, password) {
+  constructor(id,nombre,email,telefono,usuario_id = null){
     this.id = id;
     this.nombre = nombre;
     this.email = email;
     this.telefono = telefono;
-    this.password = password;
+    this.usuario_id = usuario_id;
   }
 
+  // VER COMPATIBILIDAD YA QUE ESTAS FUNCIONES SON A MEDIDA DEL ANTIGUO CONSTRUCTOR
+  
   // Creamos metodos estaticos para que no se tenga que crear una instacia de cliente antes de validar.
-
   /*
    *   Valida que el nombre:
    * - Contenga solo letras (mayúsculas/minúsculas) y espacios
    * - Permita caracteres con tilde o diéresis (Á, é, ü, ñ, etc.)
    * - Tenga al menos 2 caracteres
    */
+  
   static validarNombre(nombre) {
     const regex = /^[A-Za-zÁÉÍÓÚÜÑáéíóúüñ\s]{2,}$/;
     return regex.test(nombre);
@@ -59,3 +61,4 @@ export class Cliente {
     `;
   }
 }
+
