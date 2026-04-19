@@ -162,7 +162,7 @@ export const productos = [
         0
     ),
 
-    // ⌨TECLADOS
+    // TECLADOS
     new Producto(
         16,
         "Teclado Logitech G915 TKL",
