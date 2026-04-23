@@ -1,14 +1,9 @@
-const express = require('express');
-const app = express();
+const pool = require('./config/db');
 
-app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('API funcionando 🚀');
-});
-
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error('Error conectando a la BD:', err);
+  } else {
+    console.log('Conectado a Supabase:', res.rows);
+  }
 });
