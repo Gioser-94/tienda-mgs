@@ -1,36 +1,21 @@
-/* const pool = require('./config/db');
-
-const express = require('express');
-const app = express();
-
-app.use(express.json());
-
-app.get('/api/productos', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT * FROM productos');
-    res.json(result.rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al obtener productos' });
-  }
-});
-
-app.listen(3000, () => {
-  console.log('Servidor corriendo en http://localhost:3000');
-});*/
-
-import express from "express";
-import productRoutes from "./routes/products.routes.js";
+import express from 'express';
+import cors from 'cors';
+import productRoutes from './routes/products.routes.js';
 
 const app = express();
 
+// Middlewares
 app.use(express.json());
+app.use(cors({
+  origin: 'http://localhost:5173'  // Frontend
+}));
 
-app.get("/", (req, res) => {
-  res.send("Backend funcionando");
+// Ruta de prueba
+app.get('/', (req, res) => {
+  res.json({ message: 'Backend funcionando ✅' });
 });
 
-
-app.use("/api/products", productRoutes);
+// Rutas de productos
+app.use('/api/productos', productRoutes);
 
 export default app;
