@@ -1,16 +1,51 @@
-import { useParams, useNavigate} from "react-router-dom"
-import { useState, useEffect } from "react"
-import { productos } from "../data/productos"
-import './ProductoDetalle.css'
+import { useParams, useNavigate} from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import './ProductoDetalle.css';
+import { productoService } from "../services/Productos/productoService";
+import { API_ERRORS } from "../constants/apiErrors";
+import { obtenerErrorApi } from "../utils/apiErrorHandler";
+import Spinner from "../components/ui/spinner/Spinner";
+import {
+  formatearPrecio,
+  formatearDescuento,
+  calcularPrecioConDescuento
+} from "../utils/formatters";
 
 function ProductoDetalle() {
-  let params = useParams()
-  const [producto, setProducto] = useState(null)
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { t: traducir } = useTranslation();
+  const [producto, setProducto] = useState(null);
+  const [cargando, setCargando] = useState(true);
+  const [errorServidor, setErrorServidor] = useState("");
 
   useEffect(() => {
-    setProducto(productos.find(p => p.id === Number.parseInt(params.id)))
-  }, [])
+    const cargarProducto = async () => {
+      try {
+        setCargando(true);
+        setErrorServidor("");
+        
+        const data = await productoService.obtenerProductoPorId(id);
+
+        setProducto(data);
+
+      } catch (error) {
+        const codigoError = obtenerErrorApi(
+          error,
+          API_ERRORS.PRODUCT_LOAD_FAILED
+        );
+
+        setErrorServidor(
+          traducir(`API_ERRORS.${codigoError}`)
+        );
+
+      } finally {
+        setCargando(false);
+      }
+    };
+    cargarProducto();
+  }, [id]);
 
   /*
     Primera renderización (producto = null):
@@ -33,8 +68,36 @@ function ProductoDetalle() {
     6. Muestra el detalle completo en pantalla
   */
 
+  if (cargando) {
+    return <Spinner />;
+  }
+
+  if (errorServidor) {
+    return (
+      <div className="error-container">
+        <h3>{traducir("PRODUCT.ERROR_LOADING_DETAIL")}</h3>
+
+        <p className="error-message">
+          {errorServidor}
+        </p>
+
+        <button onClick={() => navigate(-1)}>
+          {traducir("COMMON.BACK")}
+        </button>
+      </div>
+    );
+  }
+
   if (!producto) {
-    return <p>Cargando...</p>
+    return (
+      <div className="error-container">
+        <h3>{traducir("PRODUCT.NOT_FOUND")}</h3>
+
+        <button onClick={() => navigate(-1)}>
+          {traducir("COMMON.BACK")}
+        </button>
+      </div>
+    );
   }
 
   // Tenemos acceso a los metodos de la clase Producto (aplicarDescuento)
@@ -42,13 +105,16 @@ function ProductoDetalle() {
   // de hacer la validación de que si existe producto o no, porque en un principio
   // el producto es null y hasta que no lo encuentra no se tiene acceso a los
   // métodos de la clase
-  const precioFinal = producto.aplicarDescuento(producto.descuento)
+  const precioFinal = calcularPrecioConDescuento(
+    producto.precio,
+    producto.descuento
+  );
 
   return (
     <div className="detalle-container">
       <div className="detalle-producto">
         <div className="detalle-imagen">
-          <img src={`/img/${producto.imagen}`} alt={producto.nombre} />
+          <img src={producto.imagen} alt={producto.nombre} />
         </div>
 
         <div className="detalle-info">
@@ -56,15 +122,15 @@ function ProductoDetalle() {
           <p className="detalle-descripcion">{producto.descripcion}</p>
           {producto.descuento > 0 ? (
             <p className="detalle-precio">
-              <span className="precio-original"><s>{producto.precio.toFixed(2)} €</s></span>
-              <span className="precio-final">{precioFinal.toFixed(2)} €</span>
-              <span className="descuento">(-{producto.descuento}%)</span>
+              <span className="precio-original"><s>{formatearPrecio(producto.precio)}</s></span>
+              <span className="precio-final">{formatearPrecio(precioFinal)}</span>
+              <span className="descuento">({formatearDescuento(producto.descuento)})</span>
             </p>
           ) : (
-            <p className="detalle-precio">{producto.precio.toFixed(2)} €</p>
+            <p className="detalle-precio">{formatearPrecio(producto.precio)}</p>
           )}
 
-          <h3>Especificaciones</h3>
+          <h3>{traducir("PRODUCT.SPECIFICATIONS")}</h3>
           <ul className="detalle-especificaciones">
             {Object.entries(producto.especificaciones)
               .map(([clave, valor]) => 
@@ -72,8 +138,8 @@ function ProductoDetalle() {
             }
           </ul>
 
-          <button className="btn-carrito">🛒 Añadir al carrito</button>
-          <button className="btn-volver" onClick={() => navigate(-1)}>⬅ Volver</button>
+          <button className="btn-carrito">🛒 {traducir("PRODUCT.ADD_TO_CART")}</button>
+          <button className="btn-volver" onClick={() => navigate(-1)}>⬅ {traducir("COMMON.BACK")}</button>
           {/* navigate(-1) al pulsar el boton vuelve a la ultima pagina vista */}
         </div>
       </div>

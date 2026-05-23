@@ -1,0 +1,19 @@
+.language-selector {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: Orbitron, Arial, sans-serif;
+    font-size: 0.9rem;
+}
+
+.language-selector option {
+    background: #0048aa;
+    color: white;
+}
+
+.language-selector:hover {
+    background: rgba(255, 255, 255, 0.25);
+}

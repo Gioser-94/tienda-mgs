@@ -1,0 +1,79 @@
+{
+    "NAVBAR": {
+        "HOME": "Inicio",
+        "PRODUCTS": "Productos",
+        "CART": "Carrito",
+        "LOGIN": "Iniciar sesión",
+        "LOGOUT": "Cerrar sesión",
+        "PROFILE": "Perfil",
+        "CONTACT": "Contacto",
+        "ABOUT": "Acerca de"
+    },
+
+    "AUTH": {
+        "NAME": "Nombre completo",
+        "EMAIL": "Correo electrónico",
+        "PHONE": "Teléfono",
+        "PASSWORD": "Contraseña",
+        "CONFIRM_PASSWORD": "Confirmar contraseña",
+        "REGISTER": "Crear cuenta",
+        "LOGIN": "Entrar",
+        "CREATE_ACCOUNT": "Crear cuenta",
+        "ACCEPT_PRIVACY": "He leído y acepto la política de privacidad",
+        "ALREADY_HAVE_ACCOUNT": "¿Ya tienes cuenta? Inicia sesión",
+        "REGISTER_SUCCESS": "Cuenta creada correctamente",
+        "LOGIN_SUCCESS": "Sesión iniciada correctamente",
+        "NO_ACCOUNT_REGISTER": "¿No tienes cuenta? Regístrate",
+        "HELLO": "Hola",
+        "LOGOUT": "Cerrar sesión"
+    },
+
+    "PRODUCT": {
+        "PRICE": "Precio",
+        "ADD_TO_CART": "Añadir al carrito",
+        "STOCK": "Stock",
+        "SPECIFICATIONS": "Especificaciones",
+        "ERROR_LOADING": "Error al cargar productos",
+        "ERROR_LOADING_DETAIL": "Error al cargar el producto",
+        "NOT_FOUND": "Producto no encontrado",
+        "SEARCH": "Buscar productos...",
+        "NO_RESULTS": "No se encontraron productos"
+    },
+
+    "CART": {
+        "TITLE": "Carrito",
+        "EMPTY": "El carrito está vacío",
+        "TOTAL": "Total",
+        "CHECKOUT": "Finalizar compra"
+    },
+
+    "ERRORS": {
+        "REQUIRED": "Este campo es obligatorio",
+        "EMAIL": "Correo electrónico inválido",
+        "MIN_LENGTH": "Mínimo {{minLength}} caracteres",
+        "MAX_LENGTH": "Máximo {{maxLength}} caracteres",
+        "PASSWORD_FORMAT": "Debe contener mayúsculas, minúsculas, números y caracteres especiales",
+        "PASSWORD_MATCH": "Las contraseñas no coinciden",
+        "NAME": "Nombre inválido",
+        "PHONE": "Teléfono inválido",
+        "SPECIAL_CHARACTERS": "No se permiten caracteres especiales",
+        "UNKNOWN": "Error desconocido"
+    },
+
+    "API_ERRORS": {
+        "REGISTER_FAILED": "No se ha podido crear la cuenta",
+        "LOGIN_FAILED": "Email o contraseña incorrectos",
+        "LOGOUT_FAILED": "No se ha podido cerrar sesión",
+        "SESSION_EXPIRED": "La sesión ha expirado",
+        "PRODUCTS_LOAD_FAILED": "No se han podido cargar los productos",
+        "PRODUCT_LOAD_FAILED": "No se ha podido cargar el producto",
+        "PRODUCT_SEARCH_FAILED": "No se ha podido realizar la búsqueda",
+        "UNKNOWN": "Ha ocurrido un error inesperado"
+    },
+
+    "COMMON": {
+        "LOADING": "Cargando...",
+        "RETRY": "Reintentar",
+        "BACK": "Volver"
+    }
+}

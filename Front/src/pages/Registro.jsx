@@ -1,169 +1,285 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Cliente } from '../data/Cliente';
 import './Registro.css'
 import {Link} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { validarConfirmPassword, validarNombre, validarPassword, validarTelefono, validarEmail } from '../utils/validators';
+import { traducirError } from '../utils/errorTranslator';
+import { authService } from '../services/Auth/authService';
+import { API_ERRORS } from '../constants/apiErrors';
+import { obtenerErrorApi } from '../utils/apiErrorHandler';
+import Spinner from '../components/ui/spinner/Spinner';
 
 function Registro() {
+    const { t: traducir } = useTranslation();
 
-    // Estados para cada campo
-    const [nombre, setNombre] = useState('');
-    const [errorNombre, setErrorNombre] = useState('');
+    // Un solo estado para todos los campos del formulario
+    const [formData, setFormData] = useState({
+        nombre: '',
+        email: '',
+        telefono: '',
+        password: '',
+        confirmPassword: '',
+        aceptaPolitica: false
+    });
 
-    const [email, setEmail] = useState('');
-    const [errorEmail, setErrorEmail] = useState('');
+    // Un solo estado para todos los errores de formulario
+    const [errores, setErrores] = useState({});
 
-    const [telefono, setTelefono] = useState('');
-    const [errorTelefono, setErrorTelefono] = useState('');
+    // Estado para error de servidor
+    const [errorServidor, setErrorServidor] = useState('');
 
-    const [password, setPassword] = useState('');
-    const [errorPassword, setErrorPassword] = useState('');
-    
-    const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+    // Estado mensaje de exito
+    const [mensajeExito, setMensajeExito] = useState('');
 
-    // Validaciones básicas
-    const handleNombreChange = (e) => {
-        const valor = e.target.value;
-        setNombre(valor);
+    // Estado para la espera de la petición
+    const [cargando, setCargando] = useState(false);
 
-        if(valor && !Cliente.validarNombre(valor)){
-            setErrorNombre('Nombre inválido');
-        } else {
-            setErrorNombre('');
+    // Función que valida un campo específico en tiempo real
+    const validarCampo = (campo, valor, datosActualizados = formData) => {
+        let error = null;
+
+        switch (campo) {
+            case 'nombre':
+                error = validarNombre(valor);
+                break;
+
+            case 'email':
+                error = validarEmail(valor);
+                break;
+
+            case 'telefono':
+                error = validarTelefono(valor);
+                break;
+
+            case 'password':
+                error = validarPassword(valor);
+                break;
+
+            case 'confirmPassword':
+                error = validarConfirmPassword(
+                    datosActualizados.password,
+                    valor
+                );
+                break;
+            
+            default:
+                break;
         }
 
+        setErrores((errores) => ({
+            ...errores,
+            [campo]: error
+        }));
+
+        return error;
     }
 
-    const handleEmailChange = (e) => {
-        const valor = e.target.value;
-        setEmail(valor);
+    // Handler universal para todos los inputs
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
 
-        if(valor && !Cliente.validarEmail(valor)){
-            setErrorEmail('Email inválido');
-        } else {
-            setErrorEmail('');
+        const nuevoValor = type === 'checkbox' ? checked: value;
+
+        const datosActualizados = {
+            ...formData,
+            [name]: nuevoValor
+        };
+
+        setFormData(datosActualizados);
+        
+        validarCampo(name, nuevoValor, datosActualizados);
+
+        if (name === 'password' && formData.confirmPassword) {
+            validarCampo(
+                'confirmPassword',
+                formData.confirmPassword,
+                datosActualizados
+            );
+        }
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        setErrorServidor('');
+        setMensajeExito('');
+
+        const nuevosErrores = {
+            nombre: validarNombre(formData.nombre),
+            email: validarEmail(formData.email),
+            telefono: validarTelefono(formData.telefono),
+            password: validarPassword(formData.password),
+            confirmPassword: validarConfirmPassword(
+                formData.password,
+                formData.confirmPassword
+            )
+        };
+
+        setErrores(nuevosErrores);
+
+        const hayErrores = Object.values(nuevosErrores).some(
+            (error) => error !== null
+        );
+
+        if (hayErrores || !formData.aceptaPolitica) {
+            return;
         }
 
-    }
+        try {
+            setCargando(true);
 
-    const handleTelefonoChange = (e) => {
-        const valor = e.target.value;
-        setTelefono(valor);
+            await authService.register({
+                email: formData.email,
+                password: formData.password
+            });
 
-        if(valor && !Cliente.validarTelefono(valor)){
-            setErrorTelefono('Teléfono inválido');
-        } else {
-            setErrorTelefono('');
+            setMensajeExito(traducir('AUTH.REGISTER_SUCCESS'));
+
+            setFormData({
+                nombre: '',
+                email: '',
+                telefono: '',
+                password: '',
+                confirmPassword: '',
+                aceptaPolitica: false
+            });
+
+            setErrores({});
+
+        } catch (error) {
+            const codigoError = obtenerErrorApi(
+                error,
+                API_ERRORS.REGISTER_FAILED
+            );
+
+            setErrorServidor(
+                traducir(`API_ERRORS.${codigoError}`)
+            );
+
+            setMensajeExito('');
+
+        } finally {
+            setCargando(false);
         }
-
-    }
-
-    const handlePasswordChange = (e) => {
-        const valor = e.target.value;
-        setPassword(valor);
-
-        if(valor && !Cliente.validarPassword(valor)){
-            setErrorPassword('Contraseña inválido');
-        } else {
-            setErrorPassword('');
-        }
-
-    }
-
-    const handleConfimPasswordChange = (e) => {
-        const valor = e.target.value;
-        setConfirmPassword(valor);
-
-        if ( valor && valor !== password ) {
-            setErrorConfirmPassword('Las contraseñas no coinciden');
-        } else {
-            setErrorConfirmPassword('');
-        }
-
-    }
+    };
 
   return (
     <div className="contenedorRegistro">
-        <h1>CREAR CUENTA</h1>
+        {cargando && <Spinner />}
+        <h1>{traducir('AUTH.REGISTER')}</h1>
         <div className="contenedorFormulario">
-            <form id="formRegistro" className="divFormulario">
+            <form
+                id="formRegistro"
+                className="divFormulario"
+                onSubmit={handleSubmit}
+            >
                 <div className="input-container">
                     <input
                         type="text"
+                        name="nombre"
                         className="input-form"
                         id="nombreCrearCuenta"
-                        placeholder="Nombre completo"
-                        value={nombre}
-                        onChange={handleNombreChange}
-                        required
+                        placeholder={traducir('AUTH.NAME')}
+                        value={formData.nombre}
+                        onChange={handleChange}
                     />
                     <div className='error'>
-                        {errorNombre}
+                        {traducirError(errores.nombre, traducir)}
                     </div>
                 </div>
                 <div className="input-container">
                     <input
-                        type="text"
+                        type="email"
+                        name="email"
                         className="input-form"
                         id="correoCrearCuenta"
-                        placeholder="Correo electrónico"
-                        value={email}
-                        onChange={handleEmailChange}
-                        required
+                        placeholder={traducir('AUTH.EMAIL')}
+                        value={formData.email}
+                        onChange={handleChange}
                     />
                     <div className='error'>
-                        {errorEmail}
+                        {traducirError(errores.email, traducir)}
                     </div>
                 </div>
                 <div className="input-container">
                     <input
                         type="text"
+                        name="telefono"
                         className="input-form"
                         id="telefonoCrearCuenta"
-                        placeholder="Teléfono (Ej: +34 612345678)"
-                        value={telefono}
-                        onChange={handleTelefonoChange}
-                        required
+                        placeholder={traducir('AUTH.PHONE')}
+                        value={formData.telefono}
+                        onChange={handleChange}
                     />
                     <div className='error'>
-                        {errorTelefono}
+                        {traducirError(errores.telefono, traducir)}
                     </div>
                 </div>
                 <div className="input-container">
                     <input
                         type="password"
+                        name="password"
                         className="input-form"
                         id="contrasenaCrearCuenta"
-                        placeholder="Contraseña"
-                        value={password}
-                        onChange={handlePasswordChange}
-                        required
+                        placeholder={traducir('AUTH.PASSWORD')}
+                        value={formData.password}
+                        onChange={handleChange}
                     />
                     <div className='error'>
-                        {errorPassword}
+                        {traducirError(errores.password, traducir)}
                     </div>
                 </div>
                 <div className="input-container">
                     <input
                         type="password"
+                        name="confirmPassword"
                         className="input-form"
                         id="repetirContrasena"
-                        placeholder="Repetir contraseña"
-                        value={confirmPassword}
-                        onChange={handleConfimPasswordChange}
-                        required
+                        placeholder={traducir('AUTH.CONFIRM_PASSWORD')}
+                        value={formData.confirmPassword}
+                        onChange={handleChange}
                     />
                     <div className='error'>
-                        {errorConfirmPassword}
+                        {traducirError(errores.confirmPassword, traducir)}
                     </div>
                 </div>
                 <div id="radio">
-                    <input type="radio" className="input-form" id="radioAceptarPolitica"/>He leído y acepto la política de privacidad<br/>
+                    <input
+                        type="checkbox"
+                        name="aceptaPolitica"
+                        className="input-form"
+                        id="radioAceptarPolitica"
+                        checked={formData.aceptaPolitica}
+                        onChange={handleChange}
+                    />
+                    {traducir('AUTH.ACCEPT_PRIVACY')}
+                    <br/>
                 </div>    
-                <button type="submit" className="botonCrearCuenta">CREAR CUENTA</button><br/>
+                <button
+                    type="submit"
+                    className="botonCrearCuenta"
+                    disabled={cargando}
+                >
+                    {cargando
+                            ? traducir('COMMON.LOADING')
+                            : traducir('AUTH.CREATE_ACCOUNT')}
+                </button>
+                {errorServidor && (
+                    <div className="error mensajeFormulario">
+                        {errorServidor}
+                    </div>
+                )}
+
+                {mensajeExito && (
+                    <div className="success mensajeFormulario">
+                        {mensajeExito}
+                    </div>
+                )}
+                <br/>
             </form>
-            <Link to='/login'>¿Ya tienes cuenta? Inicia sesión</Link>
+            <Link to='/login'>
+                {traducir('AUTH.ALREADY_HAVE_ACCOUNT')}
+            </Link>
         </div>
     </div>
   )
