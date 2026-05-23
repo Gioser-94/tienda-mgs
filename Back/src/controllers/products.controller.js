@@ -1,53 +1,141 @@
-import { supabase } from '../config/supabase.js';
+import prisma from '../config/prisma.js'
+import { supabase } from '../config/supabase.js'
 
-// Obtener todos los productos
-export const getAllProducts = async (req, res) => {
-  try {
-    const { data, error } = await supabase
-      .from('productos')
-      .select('*');
-    
-    if (error) {
-      console.error('❌ Error de Supabase:', error);
-      throw error;
-    }
-    
-    console.log(`✅ ${data.length} productos obtenidos`);
-    res.json(data);  // No necesitas status(200), json() ya pone 200
-    
-  } catch (error) {
-    console.error('❌ Error al obtener productos:', error.message);
-    res.status(500).json({ 
-      error: 'Error al obtener productos',
-      details: error.message 
-    });
-  }
-};
+const SUPABASE_STORAGE_URL = `${process.env.SUPABASE_URL}/storage/v1/object/public/Imagenes`
 
-// Obtener un producto por ID
-export const getProductById = async (req, res) => {
+// GET /api/productos
+export const getProductos = async (req, res) => {
   try {
-    const { id } = req.params;
-    
-    const { data, error } = await supabase
-      .from('productos')
-      .select('*')
-      .eq('id', id)
-      .single();
-    
-    if (error) throw error;
-    
-    if (!data) {
-      return res.status(404).json({ error: 'Producto no encontrado' });
-    }
-    
-    res.json(data);
-    
+    const productos = await prisma.productos.findMany({
+      where: { activo: true },
+      include: { categoria: true },
+      orderBy: { nombre: 'asc' }
+    })
+
+    const productosConUrl = productos.map(p => ({
+      ...p,
+      imagen: `${SUPABASE_STORAGE_URL}/${p.imagen}`
+    }))
+
+    return res.json({ productos: productosConUrl })
   } catch (error) {
-    console.error('❌ Error al obtener producto:', error.message);
-    res.status(500).json({ 
-      error: 'Error al obtener el producto',
-      details: error.message 
-    });
+    console.error('Error en getProductos:', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
   }
-};
+}
+
+// GET /api/productos/:id
+export const getProducto = async (req, res) => {
+  try {
+    const { id } = req.params
+    const producto = await prisma.productos.findUnique({
+      where: { id: BigInt(id) },
+      include: { categoria: true }
+    })
+
+    if (!producto) {
+      return res.status(404).json({ error: 'Producto no encontrado' })
+    }
+
+    return res.json({
+      producto: {
+        ...producto,
+        imagen: `${SUPABASE_STORAGE_URL}/${producto.imagen}`
+      }
+    })
+  } catch (error) {
+    console.error('Error en getProducto:', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
+  }
+}
+
+// GET /api/productos/categoria/:id
+export const getProductosPorCategoria = async (req, res) => {
+  try {
+    const { id } = req.params
+    const productos = await prisma.productos.findMany({
+      where: {
+        categoria_id: BigInt(id),
+        activo: true
+      },
+      include: { categoria: true }
+    })
+
+    const productosConUrl = productos.map(p => ({
+      ...p,
+      imagen: `${SUPABASE_STORAGE_URL}/${p.imagen}`
+    }))
+
+    return res.json({ productos: productosConUrl })
+  } catch (error) {
+    console.error('Error en getProductosPorCategoria:', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
+  }
+}
+
+// POST /api/productos  (admin)
+export const crearProducto = async (req, res) => {
+  try {
+    const { nombre, descripcion, imagen, precio, categoria_id, especificaciones, descuento, stock } = req.body
+
+    if (!nombre || !imagen || !precio || !categoria_id || !especificaciones) {
+      return res.status(400).json({ error: 'Faltan campos obligatorios' })
+    }
+
+    const producto = await prisma.productos.create({
+      data: {
+        nombre,
+        descripcion,
+        imagen,
+        precio,
+        categoria_id: BigInt(categoria_id),
+        especificaciones,
+        descuento,
+        stock:  stock  ?? 0,
+        activo: true
+      }
+    })
+
+    return res.status(201).json({ producto })
+  } catch (error) {
+    console.error('Error en crearProducto:', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
+  }
+}
+
+// PUT /api/productos/:id  (admin)
+export const actualizarProducto = async (req, res) => {
+  try {
+    const { id } = req.params
+    const data = req.body
+
+    if (data.categoria_id) data.categoria_id = BigInt(data.categoria_id)
+
+    const producto = await prisma.productos.update({
+      where: { id: BigInt(id) },
+      data
+    })
+
+    return res.json({ producto })
+  } catch (error) {
+    console.error('Error en actualizarProducto:', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
+  }
+}
+
+// DELETE /api/productos/:id  (admin)
+export const eliminarProducto = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    await prisma.productos.update({
+      where: { id: BigInt(id) },
+      data: { activo: false }
+    })
+
+    return res.json({ message: 'Producto desactivado correctamente' })
+  } catch (error) {
+    console.error('Error en eliminarProducto:', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
+  }
+}

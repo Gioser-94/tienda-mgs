@@ -1,21 +1,31 @@
-import express from 'express';
-import cors from 'cors';
-import productRoutes from './routes/products.routes.js';
+import express from 'express'
+import cors from 'cors'
+import cookieParser from 'cookie-parser'
+import authRoutes     from './routes/auth.routes.js'
+import productRoutes  from './routes/products.routes.js'
+import categoryRoutes from './routes/categories.routes.js'
+import clientRoutes   from './routes/clients.routes.js'
+import orderRoutes    from './routes/orders.routes.js'
+import userRoutes     from './routes/users.routes.js'
 
-const app = express();
+const app = express()
 
-// Middlewares
-app.use(express.json());
+app.use(express.json())
+app.use(cookieParser())
 app.use(cors({
-  origin: 'http://localhost:5173'  // Frontend
-}));
+  origin: 'http://localhost:5173',
+  credentials: true
+}))
 
-// Ruta de prueba
+app.use('/api/auth',       authRoutes)
+app.use('/api/products',   productRoutes)
+app.use('/api/categories', categoryRoutes)
+app.use('/api/clients',    clientRoutes)
+app.use('/api/orders',     orderRoutes)
+app.use('/api/users',      userRoutes)
+
 app.get('/', (req, res) => {
-  res.json({ message: 'Backend funcionando ✅' });
-});
+  res.json({ message: 'Backend funcionando ✅' })
+})
 
-// Rutas de productos
-app.use('/api/productos', productRoutes);
-
-export default app;
+export default app

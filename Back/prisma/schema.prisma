@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model categorias {
+  id          BigInt      @id @default(autoincrement())
+  nombre      String      @db.VarChar
+  descripcion String?     @db.Text
+  created_at  DateTime    @default(now()) @db.Timestamptz(6)
+  productos   productos[]
+}
+
+model usuarios {
+  id         BigInt     @id @default(autoincrement())
+  email      String     @unique @db.VarChar
+  password   String     @db.VarChar
+  rol        String     @default("cliente") @db.VarChar
+  created_at DateTime   @default(now()) @db.Timestamptz(6)
+  clientes   clientes[]
+}
+
+model clientes {
+  id          BigInt        @id @default(autoincrement())
+  nombre      String        @db.VarChar
+  email       String        @db.VarChar
+  telefono    String        @db.VarChar
+  usuario_id  BigInt?
+  created_at  DateTime      @default(now()) @db.Timestamptz(6)
+  usuario     usuarios?     @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  direcciones direcciones[]
+  pedidos     pedidos[]
+}
+
+model direcciones {
+  id            BigInt    @id @default(autoincrement())
+  cliente_id    BigInt
+  direccion     String    @db.VarChar
+  ciudad        String    @db.VarChar
+  provincia     String?   @db.VarChar
+  codigo_postal String    @db.VarChar
+  pais          String    @db.VarChar
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  cliente       clientes  @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  pedidos       pedidos[]
+}
+
+model pedidos {
+  id            BigInt          @id @default(autoincrement())
+  cliente_id    BigInt
+  direccion_id  BigInt
+  fecha         DateTime        @default(now()) @db.Timestamptz(6)
+  estado        String          @default("Pendiente") @db.VarChar
+  total         Decimal         @db.Decimal
+  created_at    DateTime        @default(now()) @db.Timestamptz(6)
+  cliente       clientes        @relation(fields: [cliente_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  direccion     direcciones     @relation(fields: [direccion_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  lineas_pedido lineas_pedido[]
+}
+
+model lineas_pedido {
+  id              BigInt    @id @default(autoincrement())
+  pedido_id       BigInt
+  producto_id     BigInt
+  cantidad        BigInt
+  precio_unitario Decimal   @db.Decimal
+  subtotal        Decimal   @db.Decimal
+  created_at      DateTime  @default(now()) @db.Timestamptz(6)
+  pedido          pedidos   @relation(fields: [pedido_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  producto        productos @relation(fields: [producto_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model productos {
+  id               BigInt          @id @default(autoincrement())
+  nombre           String          @db.VarChar
+  descripcion      String?         @db.Text
+  imagen           String          @db.VarChar
+  precio           Decimal         @db.Decimal
+  categoria_id     BigInt
+  especificaciones Json
+  descuento        Decimal?        @db.Decimal
+  stock            BigInt          @default(0)
+  activo           Boolean         @default(true)
+  created_at       DateTime        @default(now()) @db.Timestamptz(6)
+  categoria        categorias      @relation(fields: [categoria_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  lineas_pedido    lineas_pedido[]
+}
