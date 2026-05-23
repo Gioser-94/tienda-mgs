@@ -1,0 +1,79 @@
+{
+    "NAVBAR": {
+        "HOME": "Home",
+        "PRODUCTS": "Products",
+        "CART": "Cart",
+        "LOGIN": "Log in",
+        "LOGOUT": "Log out",
+        "PROFILE": "Profile",
+        "CONTACT": "Contact",
+        "ABOUT": "About"
+    },
+
+    "AUTH": {
+        "NAME": "Full name",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "PASSWORD": "Password",
+        "CONFIRM_PASSWORD": "Confirm password",
+        "REGISTER": "Create account",
+        "LOGIN": "Log in",
+        "CREATE_ACCOUNT": "Create account",
+        "ACCEPT_PRIVACY": "I have read and accept the privacy policy",
+        "ALREADY_HAVE_ACCOUNT": "Already have an account? Log in",
+        "REGISTER_SUCCESS": "Account created successfully",
+        "LOGIN_SUCCESS": "Logged in successfully",
+        "NO_ACCOUNT_REGISTER": "Don't have an account? Register",
+        "HELLO": "Hello",
+        "LOGOUT": "Logout"
+    },
+
+    "PRODUCT": {
+        "PRICE": "Price",
+        "ADD_TO_CART": "Add to cart",
+        "STOCK": "Stock",
+        "SPECIFICATIONS": "Specifications",
+        "ERROR_LOADING": "Error loading products",
+        "ERROR_LOADING_DETAIL": "Error loading product",
+        "NOT_FOUND": "Product not found",
+        "SEARCH": "Search products...",
+        "NO_RESULTS": "No products found"
+    },
+
+    "CART": {
+        "TITLE": "Cart",
+        "EMPTY": "The cart is empty",
+        "TOTAL": "Total",
+        "CHECKOUT": "Checkout"
+    },
+
+    "ERRORS": {
+        "REQUIRED": "This field is required",
+        "EMAIL": "Invalid email",
+        "MIN_LENGTH": "Minimum {{minLength}} characters",
+        "MAX_LENGTH": "Maximum {{maxLength}} characters",
+        "PASSWORD_FORMAT": "Must contain uppercase, lowercase, numbers and special characters",
+        "PASSWORD_MATCH": "Passwords do not match",
+        "NAME": "Invalid name",
+        "PHONE": "Invalid phone number",
+        "SPECIAL_CHARACTERS": "Special characters are not allowed",
+        "UNKNOWN": "Unknown error"
+    },
+
+    "API_ERRORS": {
+        "REGISTER_FAILED": "The account could not be created",
+        "LOGIN_FAILED": "Invalid email or password",
+        "LOGOUT_FAILED": "Could not log out",
+        "SESSION_EXPIRED": "Session has expired",
+        "PRODUCTS_LOAD_FAILED": "Products could not be loaded",
+        "PRODUCT_LOAD_FAILED": "Product could not be loaded",
+        "PRODUCT_SEARCH_FAILED": "Product search could not be completed",
+        "UNKNOWN": "An unexpected error occurred"
+    },
+
+    "COMMON": {
+        "LOADING": "Loading...",
+        "RETRY": "Retry",
+        "BACK": "Back"
+    }
+}

@@ -139,3 +139,38 @@ export const eliminarProducto = async (req, res) => {
     return res.status(500).json({ error: 'Error interno del servidor' })
   }
 }
+
+export const buscarProductos = async (req, res) => {
+    try {
+        const { q } = req.query;
+
+        const productos = await prisma.productos.findMany({
+            where: {
+                OR: [
+                    {
+                        nombre: {
+                            contains: q,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        descripcion: {
+                            contains: q,
+                            mode: 'insensitive'
+                        }
+                    }
+                ]
+            }
+        });
+
+        res.json({
+            productos
+        });
+
+    } catch (error){
+        console.error(error);
+        res.status(500).json({
+            error: 'Error buscando productos'
+        });
+    }
+};
