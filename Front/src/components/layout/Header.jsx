@@ -7,31 +7,16 @@ import { useAuth } from '../../context/AuthContext';
 import { authService } from '../../services/Auth/authService';
 import LanguageSelector from '../ui/language-selector/LanguageSelector';
 import { productoService } from '../../services/Productos/productoService';
+import { useCart } from '../../context/CartContext';
 
 function Header() {
     const navigate = useNavigate();
     const { t: traducir } = useTranslation();
     const { usuario, setUsuario, estaLogueado } = useAuth();
-    const [carrito, setCarrito] = useState([]);
+    const { contarProductosCarrito } = useCart();
     const [textoBusqueda, setTextoBusqueda] = useState('');
     const [resultados, setResultados] = useState([]);
     const [buscando, setBuscando] = useState(false);
-
-    useEffect(() => {
-        actualizarCarrito();
-
-        window.addEventListener(
-            'carrito-cambiado',
-            actualizarCarrito
-        );
-
-        return () => {
-            window.removeEventListener(
-                'carrito-cambiado',
-                actualizarCarrito
-            );
-        };
-    }, []);
 
     useEffect(() => {
         if (!textoBusqueda.trim()) {
@@ -59,33 +44,12 @@ function Header() {
         return () => clearTimeout(timeout);
     }, [textoBusqueda]);
 
-    const contarProductos = () => {
-        return carrito.reduce(
-            (acc, item) => acc + item.cantidad,
-            0
-        );
-    };
-
     const cerrarSesion = async () => {
         try {
             await authService.logout();
         } finally {
             setUsuario(null);
             navigate('/');
-        }
-    };
-
-    const actualizarCarrito = () => {
-        try {
-            const datos = localStorage.getItem('carrito');
-
-            const carritoData = datos
-                ? JSON.parse(datos)
-                : [];
-
-            setCarrito(carritoData);
-        } catch {
-            setCarrito([]);
         }
     };
 
@@ -171,7 +135,7 @@ function Header() {
 
                         <Link to="/carrito">
                             🛒 {traducir('NAVBAR.CART')} (
-                            {contarProductos()})
+                            {contarProductosCarrito()})
                         </Link>
 
                         {' | '}
@@ -203,7 +167,7 @@ function Header() {
 
                         <Link to="/carrito">
                             🛒 {traducir('NAVBAR.CART')} (
-                            {contarProductos()})
+                            {contarProductosCarrito()})
                         </Link>
                     </>
                 )}
