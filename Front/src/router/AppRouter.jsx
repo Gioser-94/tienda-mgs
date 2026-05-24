@@ -11,6 +11,8 @@ import Carrito from "../pages/Carrito";
 import ProductoDetalle from "../pages/ProductoDetalle";
 import Contacto from "../pages/Contacto";
 import Acerca from "../pages/Acerca";
+import AdminRoute from '../components/auth/AdminRoute'
+import Admin from '../pages/Admin'
 
 function AppRouter() {
   return (
@@ -27,6 +29,14 @@ function AppRouter() {
                     <Perfil />
                 </PrivateRoute>
             }
+        />
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }
         />
         <Route path="carrito" element={<Carrito />} />
         <Route path="producto/:id" element={<ProductoDetalle />} />

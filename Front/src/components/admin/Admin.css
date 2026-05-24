@@ -1,0 +1,208 @@
+.tituloSeccionAdmin {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2b2f38;
+  margin-bottom: 1.5rem;
+}
+
+.tablaAdmin {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.tablaAdmin th {
+  background: #2b2f38;
+  color: white;
+  padding: 0.8rem 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.tablaAdmin td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #cfcfcf;
+  color: #2b2f38;
+}
+
+.tablaAdmin tr:hover td {
+  background: #efefef;
+}
+
+.accionesAdmin {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.botonSecundarioAdmin {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #0d7dfd;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.botonSecundarioAdmin:hover {
+  background: #0b6fe0;
+}
+
+.botonPeligroAdmin {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #dc3545;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.botonPeligroAdmin:hover {
+  background: #b02a37;
+}
+
+.botonExitoAdmin {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  background: #28a745;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.botonExitoAdmin:hover {
+  background: #218838;
+}
+
+.badgeRol {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badgeRol.admin {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.badgeRol.cliente {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badgeEstado {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badgeEstado.pendiente  { background: #fff3cd; color: #856404; }
+.badgeEstado.procesando { background: #cce5ff; color: #004085; }
+.badgeEstado.enviado    { background: #d4edda; color: #155724; }
+.badgeEstado.entregado  { background: #d1ecf1; color: #0c5460; }
+.badgeEstado.cancelado  { background: #f8d7da; color: #721c24; }
+
+.errorAdmin {
+  color: #721c24;
+  background: #f8d7da;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+}
+
+.selectEstadoAdmin {
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.lineaProductoPedido {
+  font-size: 0.85rem;
+  color: #2b2f38;
+  padding: 0.1rem 0;
+}
+
+.cabeceraSeccionAdmin {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.formularioAdmin {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border: 1px solid #cfcfcf;
+}
+
+.tituloFormularioAdmin {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2b2f38;
+  margin-bottom: 1.2rem;
+}
+
+.gridFormularioAdmin {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.grupoFormularioAdmin {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.grupoFormularioAdmin label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #2b2f38;
+}
+
+.grupoFormularioAdmin input,
+.grupoFormularioAdmin select,
+.grupoFormularioAdmin textarea {
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.grupoFormularioAdmin input:focus,
+.grupoFormularioAdmin select:focus,
+.grupoFormularioAdmin textarea:focus {
+  border-color: #0d7dfd;
+}
+
+.grupoCompleto {
+  grid-column: 1 / -1;
+}
+
+.accionesFormularioAdmin {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 0.8rem;
+}
+
+.imagenTablaAdmin {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}

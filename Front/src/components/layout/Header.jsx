@@ -97,7 +97,6 @@ function Header() {
         <header className="header">
             <Link to="/" className="logo">
                 <img src={logo} alt="Logo Tienda" />
-
                 <h1>MGS COMPONENTS</h1>
             </Link>
 

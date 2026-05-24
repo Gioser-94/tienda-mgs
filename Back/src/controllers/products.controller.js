@@ -24,6 +24,26 @@ export const getProductos = async (req, res) => {
   }
 }
 
+// GET /api/products/all (admin)
+export const getTodosProductos = async (req, res) => {
+  try {
+    const productos = await prisma.productos.findMany({
+      include: { categoria: true },
+      orderBy: { nombre: 'asc' }
+    })
+
+    const productosConUrl = productos.map(p => ({
+      ...p,
+      imagen: `${SUPABASE_STORAGE_URL}/${p.imagen}`
+    }))
+
+    return res.json({ productos: productosConUrl })
+  } catch (error) {
+    console.error('Error en getTodosProductos:', error)
+    return res.status(500).json({ error: 'Error interno del servidor' })
+  }
+}
+
 // GET /api/productos/:id
 export const getProducto = async (req, res) => {
   try {

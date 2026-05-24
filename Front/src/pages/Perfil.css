@@ -1,0 +1,153 @@
+.contenedorPerfil {
+  width: 100%;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.seccionPerfil {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tituloPerfil {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #2b2f38;
+  margin-bottom: 1.5rem;
+}
+
+.subtituloPerfil {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2b2f38;
+  margin-bottom: 1.5rem;
+}
+
+.tarjetaPerfil {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.grupoDatoPerfil {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.etiquetaPerfil {
+  font-size: 0.85rem;
+  color: #9a9a9a;
+  font-weight: 500;
+}
+
+.valorPerfil {
+  font-size: 1rem;
+  color: #2b2f38;
+  font-weight: 600;
+}
+
+/* PEDIDOS */
+.listaPedidosPerfil {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tarjetaPedidoPerfil {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.2rem;
+  border: 1px solid #cfcfcf;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.cabeceraPedidoPerfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.idPedidoPerfil {
+  font-weight: 700;
+  color: #2b2f38;
+}
+
+.estadoPedidoPerfil {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.estado-pendiente  { background: #fff3cd; color: #856404; }
+.estado-procesando { background: #cce5ff; color: #004085; }
+.estado-enviado    { background: #d4edda; color: #155724; }
+.estado-entregado  { background: #d1ecf1; color: #0c5460; }
+.estado-cancelado  { background: #f8d7da; color: #721c24; }
+
+.lineaPedidoPerfil {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  color: #2b2f38;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.piePedidoPerfil {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.3rem;
+}
+
+.fechaPedidoPerfil {
+  font-size: 0.85rem;
+  color: #9a9a9a;
+}
+
+.totalPedidoPerfil {
+  font-weight: 700;
+  color: #2b2f38;
+  font-size: 1.05rem;
+}
+
+.sinPedidosPerfil {
+  color: #9a9a9a;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.errorPerfil {
+  color: #721c24;
+  background: #f8d7da;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.botonAdmin {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #0d7dfd;
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: background-color 0.2s ease;
+  align-self: center;  
+}
+
+.botonAdmin:hover {
+  background-color: #0b6fe0;
+}
