@@ -42,8 +42,12 @@
 
     "CART": {
         "TITLE": "Cart",
-        "EMPTY": "The cart is empty",
+        "EMPTY": "Your cart is empty",
+        "PRICE": "Price",
+        "QUANTITY": "Quantity",
+        "DELETE": "Delete",
         "TOTAL": "Total",
+        "SUBTOTAL": "Subtotal",
         "CHECKOUT": "Checkout"
     },
 

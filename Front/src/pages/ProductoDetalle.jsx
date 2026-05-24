@@ -11,11 +11,13 @@ import {
   formatearDescuento,
   calcularPrecioConDescuento
 } from "../utils/formatters";
+import { useCart } from "../context/CartContext";
 
 function ProductoDetalle() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t: traducir } = useTranslation();
+  const { addProductoCarrito } = useCart();
   const [producto, setProducto] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [errorServidor, setErrorServidor] = useState("");
@@ -110,6 +112,10 @@ function ProductoDetalle() {
     producto.descuento
   );
 
+  const handleAddCarrito = async () => {
+      await addProductoCarrito(producto.id, 1);
+  };
+
   return (
     <div className="detalle-container">
       <div className="detalle-producto">
@@ -138,7 +144,7 @@ function ProductoDetalle() {
             }
           </ul>
 
-          <button className="btn-carrito">🛒 {traducir("PRODUCT.ADD_TO_CART")}</button>
+          <button className="btn-carrito" onClick={handleAddCarrito}>🛒 {traducir("PRODUCT.ADD_TO_CART")}</button>
           <button className="btn-volver" onClick={() => navigate(-1)}>⬅ {traducir("COMMON.BACK")}</button>
           {/* navigate(-1) al pulsar el boton vuelve a la ultima pagina vista */}
         </div>

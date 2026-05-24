@@ -21,6 +21,7 @@ model usuarios {
   rol        String     @default("cliente") @db.VarChar
   created_at DateTime   @default(now()) @db.Timestamptz(6)
   clientes   clientes[]
+  carrito    carrito?
 }
 
 model clientes {
@@ -87,4 +88,31 @@ model productos {
   created_at       DateTime        @default(now()) @db.Timestamptz(6)
   categoria        categorias      @relation(fields: [categoria_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   lineas_pedido    lineas_pedido[]
+  carrito_items    carrito_items[]
+}
+
+model carrito {
+  id         BigInt   @id @default(autoincrement())
+  usuario_id BigInt
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
+
+  usuario usuarios        @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  items   carrito_items[]
+
+  @@unique([usuario_id])
+}
+
+model carrito_items {
+  id          BigInt   @id @default(autoincrement())
+  carrito_id  BigInt
+  producto_id BigInt
+  cantidad    BigInt   @default(1)
+  created_at  DateTime @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime @updatedAt @db.Timestamptz(6)
+
+  carrito  carrito   @relation(fields: [carrito_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  producto productos @relation(fields: [producto_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([carrito_id, producto_id])
 }

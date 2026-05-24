@@ -7,6 +7,7 @@ import categoryRoutes from './routes/categories.routes.js'
 import clientRoutes   from './routes/clients.routes.js'
 import orderRoutes    from './routes/orders.routes.js'
 import userRoutes     from './routes/users.routes.js'
+import cartRoutes     from './routes/cart.routes.js';
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use('/api/categories', categoryRoutes)
 app.use('/api/clients',    clientRoutes)
 app.use('/api/orders',     orderRoutes)
 app.use('/api/users',      userRoutes)
+app.use('/api/cart', cartRoutes)
 
 app.get('/', (req, res) => {
   res.json({ message: 'Backend funcionando ✅' })

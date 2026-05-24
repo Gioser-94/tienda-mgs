@@ -6,7 +6,7 @@ import { isAdmin } from '../middlewares/adminMiddleware.js'
 const router = Router()
 
 // Rutas públicas
-router.post('/', crearPedido)         // crear pedido (logueado o invitado)
+router.post('/', requireAuth, crearPedido)         // crear pedido (logueado o invitado)
 router.get('/email/:email', getPedidosByEmail)   // ver pedidos por email
 
 // Rutas autenticado
