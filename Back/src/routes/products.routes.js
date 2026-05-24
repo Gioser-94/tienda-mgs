@@ -1,13 +1,5 @@
 import { Router } from 'express'
-import {
-    getProductos,
-    getProducto,
-    getProductosPorCategoria,
-    crearProducto,
-    actualizarProducto,
-    eliminarProducto,
-    buscarProductos
-} from '../controllers/products.controller.js'
+import {getProductos, getProducto, getProductosPorCategoria, crearProducto, actualizarProducto, eliminarProducto, buscarProductos} from '../controllers/products.controller.js'
 import { requireAuth } from '../middlewares/authMiddleware.js'
 import { isAdmin } from '../middlewares/adminMiddleware.js'
 
