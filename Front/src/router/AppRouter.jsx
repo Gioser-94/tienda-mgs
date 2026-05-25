@@ -11,8 +11,10 @@ import Carrito from "../pages/Carrito";
 import ProductoDetalle from "../pages/ProductoDetalle";
 import Contacto from "../pages/Contacto";
 import Acerca from "../pages/Acerca";
-import AdminRoute from '../components/auth/AdminRoute'
-import Admin from '../pages/Admin'
+import AdminRoute from '../components/auth/AdminRoute';
+import Admin from '../pages/Admin';
+import Checkout from '../pages/Checkout';
+import PedidoConfirmado from '../pages/PedidoConfirmado';
 
 function AppRouter() {
   return (
@@ -39,6 +41,15 @@ function AppRouter() {
           }
         />
         <Route path="carrito" element={<Carrito />} />
+        <Route
+            path="checkout"
+            element={
+                <PrivateRoute>
+                    <Checkout />
+                </PrivateRoute>
+            }
+        />
+        <Route path="pedido-confirmado" element={<PedidoConfirmado />} />
         <Route path="producto/:id" element={<ProductoDetalle />} />
         <Route path="contacto" element={<Contacto />} />
         <Route path="acerca" element={<Acerca />} />

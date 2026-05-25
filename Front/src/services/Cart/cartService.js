@@ -26,3 +26,8 @@ export const deleteItemCarrito = async (productId) => {
     const response = await api.delete(`/cart/items/${productId}`);
     return response.data;
 };
+
+export const clearCarrito = async () => {
+    const response = await api.delete('/cart');
+    return response.data;
+};

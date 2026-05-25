@@ -47,8 +47,51 @@
         "QUANTITY": "Cantidad",
         "DELETE": "Eliminar",
         "TOTAL": "Total",
-        "SUBTOTAL": "Subtotal",
-        "CHECKOUT": "Finalizar compra"
+        "SUBTOTAL": "Subtotal"
+    },
+    
+    "CHECKOUT": {
+        "TITLE": "Finalizar compra",
+        "STEP_PERSONAL": "Datos personales",
+        "STEP_ADDRESS": "Dirección de envío",
+        "STEP_PAYMENT": "Pago",
+        "NAME": "Nombre completo",
+        "EMAIL": "Correo electrónico",
+        "PHONE": "Teléfono",
+        "ADDRESS": "Dirección",
+        "CITY": "Ciudad",
+        "PROVINCE_OPTIONAL": "Provincia (opcional)",
+        "POSTAL_CODE": "Código postal",
+        "COUNTRY": "País",
+        "CARD_HOLDER": "Titular de la tarjeta",
+        "CARD_NUMBER": "Número de tarjeta",
+        "CARD_EXPIRY": "Fecha de caducidad (MM/AA)",
+        "CARD_CVV": "CVV",
+        "PAYMENT_SIMULATED": "El pago es simulado. No se realizará ningún cargo real.",
+        "ORDER_SUMMARY": "Resumen del pedido",
+        "NEXT": "Siguiente",
+        "BACK": "Volver",
+        "CONFIRM_ORDER": "Confirmar pedido",
+        "PROCESSING": "Procesando..."
+    },
+
+    "ORDER": {
+        "SUCCESS_TITLE": "¡Pedido realizado!",
+        "SUCCESS_MESSAGE": "Tu pedido ha sido procesado correctamente.",
+        "ORDER_NUMBER": "Número de pedido",
+        "ORDER_TOTAL": "Total",
+        "ORDER_STATUS": "Estado",
+        "GO_HOME": "Volver al inicio"
+    },
+
+    "PROFILE": {
+        "TITLE": "Mi Perfil",
+        "EMAIL": "Email",
+        "ROLE": "Rol",
+        "MY_ORDERS": "Mis Pedidos",
+        "NO_ORDERS": "No tienes pedidos todavía.",
+        "ORDER_NUMBER": "Pedido #",
+        "ADMIN_PANEL": "Panel de Administración →"
     },
 
     "ERRORS": {
@@ -72,6 +115,9 @@
         "PRODUCTS_LOAD_FAILED": "No se han podido cargar los productos",
         "PRODUCT_LOAD_FAILED": "No se ha podido cargar el producto",
         "PRODUCT_SEARCH_FAILED": "No se ha podido realizar la búsqueda",
+        "ORDERS_LOAD_FAILED": "No se han podido cargar los pedidos",
+        "ORDER_CREATE_FAILED": "No se ha podido procesar el pedido",
+        "USERS_LOAD_FAILED": "No se han podido cargar los usuarios",
         "UNKNOWN": "Ha ocurrido un error inesperado"
     },
 

@@ -3,7 +3,8 @@ import {
     getCarrito,
     addItemCarrito,
     updateItemCarrito,
-    deleteItemCarrito
+    deleteItemCarrito,
+    clearCarrito
 } from '../services/Cart/cartService';
 import { useAuth } from './AuthContext';
 
@@ -59,6 +60,11 @@ export const CartProvider = ({ children }) => {
         );
     };
 
+    const vaciarCarrito = async () => {
+        await clearCarrito();
+        setCarrito(null);
+    };
+
     useEffect(() => {
         if (usuario) {
             cargarCarrito();
@@ -74,7 +80,8 @@ export const CartProvider = ({ children }) => {
         addProductoCarrito,
         updateProductoCarrito,
         deleteProductoCarrito,
-        contarProductosCarrito
+        contarProductosCarrito,
+        vaciarCarrito
     };
 
     return (

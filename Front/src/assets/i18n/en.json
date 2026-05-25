@@ -47,8 +47,50 @@
         "QUANTITY": "Quantity",
         "DELETE": "Delete",
         "TOTAL": "Total",
-        "SUBTOTAL": "Subtotal",
-        "CHECKOUT": "Checkout"
+        "SUBTOTAL": "Subtotal"
+    },
+
+    "CHECKOUT": {
+        "TITLE": "Checkout",
+        "STEP_PERSONAL": "Personal details",
+        "STEP_ADDRESS": "Shipping address",
+        "STEP_PAYMENT": "Payment",
+        "NAME": "Full name",
+        "EMAIL": "Email",
+        "PHONE": "Phone",
+        "ADDRESS": "Address",
+        "CITY": "City",
+        "PROVINCE_OPTIONAL": "Province (optional)",
+        "POSTAL_CODE": "Postal code",
+        "COUNTRY": "Country",
+        "CARD_HOLDER": "Cardholder name",
+        "CARD_NUMBER": "Card number",
+        "CARD_EXPIRY": "Expiry date (MM/YY)",
+        "CARD_CVV": "CVV",
+        "PAYMENT_SIMULATED": "Payment is simulated. No real charge will be made.",
+        "ORDER_SUMMARY": "Order summary",
+        "NEXT": "Next",
+        "BACK": "Back",
+        "CONFIRM_ORDER": "Confirm order",
+        "PROCESSING": "Processing..."
+    },
+    "ORDER": {
+        "SUCCESS_TITLE": "Order placed!",
+        "SUCCESS_MESSAGE": "Your order has been processed successfully.",
+        "ORDER_NUMBER": "Order number",
+        "ORDER_TOTAL": "Total",
+        "ORDER_STATUS": "Status",
+        "GO_HOME": "Back to home"
+    },
+
+    "PROFILE": {
+        "TITLE": "My Profile",
+        "EMAIL": "Email",
+        "ROLE": "Role",
+        "MY_ORDERS": "My Orders",
+        "NO_ORDERS": "You have no orders yet.",
+        "ORDER_NUMBER": "Order #",
+        "ADMIN_PANEL": "Administration Panel →"
     },
 
     "ERRORS": {
@@ -72,6 +114,9 @@
         "PRODUCTS_LOAD_FAILED": "Products could not be loaded",
         "PRODUCT_LOAD_FAILED": "Product could not be loaded",
         "PRODUCT_SEARCH_FAILED": "Product search could not be completed",
+        "ORDERS_LOAD_FAILED": "Orders could not be loaded",
+        "ORDER_CREATE_FAILED": "The order could not be processed",
+        "USERS_LOAD_FAILED": "Users could not be loaded",
         "UNKNOWN": "An unexpected error occurred"
     },
 

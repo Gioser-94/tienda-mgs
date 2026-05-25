@@ -1,4 +1,5 @@
-import prisma from '../config/prisma.js'
+import prisma from '../config/prisma.js';
+import Decimal from 'decimal.js';
 
 // POST /api/orders
 export const crearPedido = async (req, res) => {
@@ -21,8 +22,10 @@ export const crearPedido = async (req, res) => {
 
     // Calculamos el total
     const total = productos.reduce((acc, p) => {
-      return acc + (parseFloat(p.precio_unitario) * parseInt(p.cantidad))
-    }, 0)
+      return new Decimal(acc).plus(
+        new Decimal(p.precio_unitario).times(parseInt(p.cantidad))
+      )
+    }, new Decimal(0))
 
     // Creamos todo en una transacción
     const pedido = await prisma.$transaction(async (tx) => {
@@ -61,13 +64,18 @@ export const crearPedido = async (req, res) => {
 
       // 4. Crear lineas_pedido
       await tx.lineas_pedido.createMany({
-        data: productos.map(p => ({
-          pedido_id:       nuevoPedido.id,
-          producto_id:     BigInt(p.producto_id),
-          cantidad:        parseInt(p.cantidad),
-          precio_unitario: parseFloat(p.precio_unitario),
-          subtotal:        parseFloat(p.precio_unitario) * parseInt(p.cantidad)
-        }))
+        data: productos.map(p => {
+          const precio = new Decimal(p.precio_unitario)
+          const cantidad = parseInt(p.cantidad)
+          const subtotal = precio.times(cantidad)
+          return {
+              pedido_id:       nuevoPedido.id,
+              producto_id:     BigInt(p.producto_id),
+              cantidad:        cantidad,
+              precio_unitario: precio,
+              subtotal:        subtotal
+          };
+        })
       })
 
       return nuevoPedido
