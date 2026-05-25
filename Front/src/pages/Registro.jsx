@@ -129,8 +129,10 @@ function Registro() {
             setCargando(true);
 
             await authService.register({
-                email: formData.email,
-                password: formData.password
+                email:           formData.email,
+                password:        formData.password,
+                nombre_completo: formData.nombre, 
+                telefono:        formData.telefono  
             });
 
             setMensajeExito(traducir('AUTH.REGISTER_SUCCESS'));

@@ -39,7 +39,7 @@ function Checkout() {
     const [errorServidor, setErrorServidor] = useState('');
 
     const [datosPersonales, setDatosPersonales] = useState({
-        nombre: usuario?.nombre || '',
+        nombre: usuario?.nombre_completo || '',
         email: usuario?.email || '',
         telefono: usuario?.telefono || ''
     });
@@ -53,7 +53,7 @@ function Checkout() {
     });
 
     const [datosPago, setDatosPago] = useState({
-        titular: usuario?.nombre || '',
+        titular: usuario?.nombre_completo || '',
         numero: '',
         caducidad: '',
         cvv: ''

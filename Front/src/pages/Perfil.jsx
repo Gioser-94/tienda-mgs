@@ -24,18 +24,12 @@ function Perfil() {
         const data = await orderService.getMisPedidos()
         setPedidos(data.pedidos)
       } catch (error) {
-        const codigoError = obtenerErrorApi(
-          error,
-          API_ERRORS.ORDERS_LOAD_FAILED
-        );
-        setErrorServidor(
-          traducir(`API_ERRORS.${codigoError}`)
-        );
+        const codigoError = obtenerErrorApi(error, API_ERRORS.ORDERS_LOAD_FAILED)
+        setErrorServidor(traducir(`API_ERRORS.${codigoError}`))
       } finally {
         setCargando(false)
       }
     }
-
     cargarPedidos()
   }, [])
 
@@ -46,8 +40,28 @@ function Perfil() {
 
       {/* DATOS DEL USUARIO */}
       <section className="seccionPerfil">
-        <h1 className="tituloPerfil">{traducir("PROFILE.TITLE")}</h1>
+
+        <div className="cabeceraUsuario">
+          <div className="avatarUsuario">
+            {usuario.nombre_completo?.charAt(0).toUpperCase()}
+          </div>
+          <div className="infoUsuario">
+            <h1 className="tituloPerfil">{usuario.nombre_completo}</h1>
+            <span className={`badgeRolPerfil ${usuario.rol}`}>
+              {usuario.rol}
+            </span>
+          </div>
+        </div>
+
         <div className="tarjetaPerfil">
+          <div className="grupoDatoPerfil">
+            <span className="etiquetaPerfil">{traducir("PROFILE.NAME")}</span>
+            <span className="valorPerfil">{usuario.nombre_completo}</span>
+          </div>
+          <div className="grupoDatoPerfil">
+            <span className="etiquetaPerfil">{traducir("PROFILE.PHONE")}</span>
+            <span className="valorPerfil">{usuario.telefono}</span>
+          </div>
           <div className="grupoDatoPerfil">
             <span className="etiquetaPerfil">{traducir("PROFILE.EMAIL")}</span>
             <span className="valorPerfil">{usuario.email}</span>
@@ -57,6 +71,13 @@ function Perfil() {
             <span className="valorPerfil">{usuario.rol}</span>
           </div>
         </div>
+
+        {usuario.rol === 'admin' && (
+          <Link to="/admin" className="botonAdmin">
+            {traducir("PROFILE.ADMIN_PANEL")}
+          </Link>
+        )}
+
       </section>
 
       {/* HISTORIAL DE PEDIDOS */}
@@ -79,7 +100,6 @@ function Perfil() {
                     {pedido.estado}
                   </span>
                 </div>
-
                 <div className="cuerposPedidoPerfil">
                   {pedido.lineas_pedido.map((linea) => (
                     <div key={linea.id} className="lineaPedidoPerfil">
@@ -89,7 +109,6 @@ function Perfil() {
                     </div>
                   ))}
                 </div>
-
                 <div className="piePedidoPerfil">
                   <span className="fechaPedidoPerfil">
                     {new Date(pedido.fecha).toLocaleDateString()}
@@ -100,14 +119,10 @@ function Perfil() {
                 </div>
               </div>
             ))}
-          </div>  
+          </div>
         )}
       </section>
-      {usuario.rol === 'admin' && (
-        <Link to="/admin" className="botonAdmin">
-          {traducir("PROFILE.ADMIN_PANEL")}
-        </Link>
-      )}
+
     </div>
   )
 }

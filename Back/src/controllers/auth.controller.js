@@ -5,13 +5,12 @@ import prisma from '../config/prisma.js'
 // ── REGISTER ──────────────────────────────────────────
 export const register = async (req, res) => {
   try {
-    const { email, password } = req.body
+    const { email, password, nombre_completo, telefono } = req.body
 
-    if (!email || !password) {
-      return res.status(400).json({ error: 'Email y password son obligatorios' })
+    if (!email || !password || !nombre_completo || !telefono) {
+      return res.status(400).json({ error: 'Todos los campos son obligatorios' })
     }
 
-    // Comprobamos si el email ya existe
     const existe = await prisma.usuarios.findUnique({
       where: { email }
     })
@@ -20,23 +19,26 @@ export const register = async (req, res) => {
       return res.status(409).json({ error: 'El email ya está registrado' })
     }
 
-    // Hasheamos la password
     const hashedPassword = await bcrypt.hash(password, 10)
 
     const nuevoUsuario = await prisma.usuarios.create({
       data: {
         email,
-        password: hashedPassword,
-        rol: 'cliente'
+        password:        hashedPassword,
+        nombre_completo,
+        telefono,
+        rol:             'cliente'
       }
     })
 
     return res.status(201).json({
       message: 'Usuario registrado correctamente',
       usuario: {
-        id:    nuevoUsuario.id,
-        email: nuevoUsuario.email,
-        rol:   nuevoUsuario.rol
+        id:              nuevoUsuario.id,
+        email:           nuevoUsuario.email,
+        nombre_completo: nuevoUsuario.nombre_completo,
+        telefono:        nuevoUsuario.telefono,
+        rol:             nuevoUsuario.rol
       }
     })
 
@@ -73,14 +75,15 @@ export const login = async (req, res) => {
 
     // Generamos el JWT
     const token = jwt.sign(
-      {
-        id:    usuario.id,
-        email: usuario.email,
-        rol:   usuario.rol
-      },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    )
+    {
+      id:              usuario.id,
+      email:           usuario.email,
+      nombre_completo: usuario.nombre_completo,
+      rol:             usuario.rol
+    },
+    process.env.JWT_SECRET,
+    { expiresIn: '24h' }
+  )
 
     // Metemos el token en la cookie httpOnly
     res.cookie('token', token, {
@@ -115,12 +118,14 @@ export const logout = (req, res) => {
 export const me = async (req, res) => {
   try {
     const usuario = await prisma.usuarios.findUnique({
-      where: { id: req.user.id },
+      where: { id: BigInt(req.user.id) },
       select: {
-        id:         true,
-        email:      true,
-        rol:        true,
-        created_at: true
+        id:              true,
+        email:           true,
+        rol:             true,
+        nombre_completo: true,
+        telefono:        true,
+        created_at:      true
       }
     })
 
