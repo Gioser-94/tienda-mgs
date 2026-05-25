@@ -1,67 +1,45 @@
-import './Acerca.css'
+import { useTranslation } from 'react-i18next';
+import { acercaEs } from '../assets/i18n/acerca.es';
+import { acercaEn } from '../assets/i18n/acerca.en';
+import './Acerca.css';
 
 function Acerca() {
+    const { i18n } = useTranslation()
+
+    const contenido = i18n.language.startsWith('en') ? acercaEn : acercaEs
+
+    const renderTexto = (texto) => {
+        return texto.map((segmento, index) =>
+            segmento.tipo === 'negrita'
+                ? <strong key={index}>{segmento.contenido}</strong>
+                : <span key={index}>{segmento.contenido}</span>
+        )
+    }
 
     return (
         <div className="contenedor acerca">
-            <h1>Sobre nosotros</h1>
+            <h1>{contenido.titulo}</h1>
 
             <div className="acerca-info">
-                <p>
-                    <strong>MGS Components</strong> es una tienda online especializada en la distribución de
-                    <strong>hardware de alto rendimiento</strong>, centrada en ofrecer componentes seleccionados
-                    para entusiastas, profesionales y usuarios que buscan fiabilidad, eficiencia y la mejor
-                    relación calidad-precio. Nuestro catálogo está optimizado para cubrir las necesidades de
-                    montajes avanzados, estaciones de trabajo, configuraciones gaming y proyectos educativos.
-                </p>
-
-                <p>
-                    El proyecto está desarrollado por <strong>Sergio</strong>, <strong>Daniel</strong> y
-                    <strong>Francisco</strong>, tres estudiantes apasionados por la tecnología, el rendimiento y
-                    la ingeniería informática. Cada uno aporta un enfoque distinto: diseño orientado a la
-                    experiencia de usuario, integración de servicios, optimización del código y organización
-                    estructurada del proyecto. Gracias a esta combinación hemos logrado una plataforma estable,
-                    intuitiva y enfocada en la experiencia del cliente.
-                </p>
-
-                <p>
-                    Nuestra tienda implementa procesos de búsqueda eficientes, una gestión de inventario
-                    totalmente dinámica y un sistema de carrito adaptado a las necesidades reales de un usuario
-                    moderno. El objetivo es crear un entorno de compra fluido donde el usuario sienta que cada
-                    interacción está cuidada al detalle.
-                </p>
-
-                <p>
-                    Seguimos trabajando en nuevas funciones, como recomendaciones inteligentes, comparativas
-                    rápidas de componentes y un modo de montaje guiado para usuarios menos experimentados.
-                    Todo ello manteniendo la estética limpia y futurista que caracteriza a <strong>MGS Components</strong>.
-                </p>
+                {contenido.parrafos.map((parrafo) => (
+                    <p key={parrafo.id}>
+                        {renderTexto(parrafo.texto)}
+                    </p>
+                ))}
             </div>
 
             <div className="acerca-equipo">
-                <h2>El equipo</h2>
+                <h2>{contenido.equipo.titulo}</h2>
                 <div className="equipo-grid">
-                    <div className="miembro">
-                        <h3>Daniel</h3>
-                        <p>Especialista en diseño, usabilidad y estructura visual. Encargado de la experiencia del usuario y
-                            la arquitectura de la interfaz.</p>
-                    </div>
-
-                    <div className="miembro">
-                        <h3>Francisco</h3>
-                        <p>Responsable de integración de datos, lógica funcional y optimización del rendimiento. Centrado en
-                            mantener la estabilidad del sistema.</p>
-                    </div>
-
-                    <div className="miembro">
-                        <h3>Sergio</h3>
-                        <p>Desarrollador principal del núcleo del proyecto, gestión de componentes y comunicación entre
-                            módulos. Coordinador técnico del equipo.</p>
-                    </div>
+                    {contenido.equipo.miembros.map((miembro) => (
+                        <div key={miembro.nombre} className="miembro">
+                            <h3>{miembro.nombre}</h3>
+                            <p>{miembro.descripcion}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
-
     )
 }
 

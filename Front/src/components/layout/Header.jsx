@@ -122,27 +122,19 @@ function Header() {
                         </span>
                         
 
-                        {' | '}
-
-                        <Link to="/perfil">
+                        <Link to="/perfil" className="btn-header-profile">
                             {traducir('NAVBAR.PROFILE')}
                         </Link>
 
-                        {' | '}
-
                         <LanguageSelector />
 
-                        {' | '}
-
-                        <Link to="/carrito">
+                        <Link to="/carrito" className="btn-header-carrito">
                             🛒 {traducir('NAVBAR.CART')} (
                             {contarProductosCarrito()})
                         </Link>
 
-                        {' | '}
-
                         <button
-                            className="cerrarSesion"
+                            className="btn-header-logout"
                             onClick={cerrarSesion}
                         >
                             {traducir('AUTH.LOGOUT')}
@@ -150,23 +142,17 @@ function Header() {
                     </>
                 ) : (
                     <>
-                        <Link to="/login">
+                        <Link to="/login" className="btn-header-login">
                             {traducir('AUTH.LOGIN')}
                         </Link>
 
-                        {' | '}
-
-                        <Link to="/registro">
+                        <Link to="/registro" className="btn-header-register">
                             {traducir('AUTH.REGISTER')}
                         </Link>
 
-                        {' | '}
-
                         <LanguageSelector />
 
-                        {' | '}
-
-                        <Link to="/carrito">
+                        <Link to="/carrito" className="btn-header-carrito">
                             🛒 {traducir('NAVBAR.CART')} (
                             {contarProductosCarrito()})
                         </Link>

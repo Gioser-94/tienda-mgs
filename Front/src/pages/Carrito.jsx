@@ -7,7 +7,7 @@ import { formatearPrecio } from '../utils/formatters';
 import './Carrito.css';
 
 function Carrito() {
-    const { t: traducir } = useTranslation();
+    const { t: traducir, i18n } = useTranslation();
     const navigate = useNavigate();
 
     const {
@@ -57,7 +57,7 @@ function Carrito() {
 
                             <p>
                                 {traducir('CART.PRICE')}:{' '}
-                                {formatearPrecio(item.producto.precio)}
+                                {formatearPrecio(item.producto.precio, i18n.language)}
                             </p>
 
                             <p>
@@ -68,12 +68,13 @@ function Carrito() {
                             <p>
                                 {traducir('CART.SUBTOTAL')}:{' '}
                                 {formatearPrecio(
-                                    Number(item.producto.precio) * Number(item.cantidad)
+                                    Number(item.producto.precio) * Number(item.cantidad), i18n.language
                                 )}
                             </p>
 
                             <div className="carrito-acciones">
                                 <button
+                                    className="btn-carrito-dementar"
                                     onClick={() =>
                                         updateProductoCarrito(
                                             item.producto.id,
@@ -86,6 +87,7 @@ function Carrito() {
                                 </button>
 
                                 <button
+                                    className="btn-carrito-incrementar"
                                     onClick={() =>
                                         updateProductoCarrito(
                                             item.producto.id,
@@ -97,6 +99,7 @@ function Carrito() {
                                 </button>
 
                                 <button
+                                    className="btn-carrito-eliminar"
                                     onClick={() =>
                                         deleteProductoCarrito(
                                             item.producto.id
@@ -112,7 +115,7 @@ function Carrito() {
             </div>
 
             <h2 className="carrito-total">
-                {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotal())}
+                {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotal(), i18n.language)}
             </h2>
 
             <button className="btn-checkout" onClick={() => navigate('/checkout')}>

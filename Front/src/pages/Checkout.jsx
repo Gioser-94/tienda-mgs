@@ -29,7 +29,7 @@ import './Checkout.css';
 const PASOS = { PERSONAL: 0, DIRECCION: 1, PAGO: 2 };
 
 function Checkout() {
-    const { t: traducir } = useTranslation();
+    const { t: traducir, i18n } = useTranslation();
     const navigate = useNavigate();
     const { carrito, vaciarCarrito } = useCart();
     const { usuario } = useAuth();
@@ -177,14 +177,14 @@ function Checkout() {
                             {item.producto.nombre} × {Number(item.cantidad)}
                         </span>
                         <span className="checkout-resumen-precio">
-                            {formatearPrecio(Number(item.producto.precio) * Number(item.cantidad))}
+                            {formatearPrecio(Number(item.producto.precio) * Number(item.cantidad), i18n.language)}
                         </span>
                     </li>
                 ))}
             </ul>
             <div className="checkout-resumen-total">
                 <strong>{traducir('CART.TOTAL')}:</strong>
-                <strong>{formatearPrecio(calcularTotal())}</strong>
+                <strong>{formatearPrecio(calcularTotal(), i18n.language)}</strong>
             </div>
         </aside>
     );
