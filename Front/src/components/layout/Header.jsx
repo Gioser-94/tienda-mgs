@@ -118,8 +118,9 @@ function Header() {
                     <>
                         <span>
                             👋 {traducir('AUTH.HELLO')},{' '}
-                            {usuario.email}
+                            {usuario.nombre_completo}
                         </span>
+                        
 
                         {' | '}
 

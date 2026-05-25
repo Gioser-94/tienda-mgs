@@ -85,6 +85,8 @@
 
     "PROFILE": {
         "TITLE": "My Profile",
+        "NAME": "Full name",
+        "PHONE": "Phone",
         "EMAIL": "Email",
         "ROLE": "Role",
         "MY_ORDERS": "My Orders",
