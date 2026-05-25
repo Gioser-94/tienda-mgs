@@ -1,14 +1,15 @@
-export const formatearPrecio = (precio) => {
+export const formatearPrecio = (precio, idioma = 'es-ES') => {
     const precioNumero = Number(precio);
+    if (Number.isNaN(precioNumero)) return '0,00 €';
 
-    if (Number.isNaN(precioNumero)) {
-        return '0,00 €';
-    }
+    const locale = idioma === 'en' ? 'en-IE' : 'es-ES';
 
-    return new Intl.NumberFormat('es-ES', {
-        style: 'currency',
-        currency: 'EUR'
+    const formateado = new Intl.NumberFormat(locale, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
     }).format(precioNumero);
+
+    return `${formateado} €`;
 };
 
 export const calcularPrecioConDescuento = (precio, descuento) => {

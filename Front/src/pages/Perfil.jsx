@@ -5,6 +5,8 @@ import { orderService } from '../services/Orders/orderService'
 import Spinner from '../components/ui/spinner/Spinner'
 import './Perfil.css'
 import { Link } from 'react-router-dom'
+import { obtenerErrorApi } from '../utils/apiErrorHandler'
+import { API_ERRORS } from '../constants/apiErrors'
 
 function Perfil() {
   const { t: traducir } = useTranslation()
@@ -21,8 +23,14 @@ function Perfil() {
         setErrorServidor('')
         const data = await orderService.getMisPedidos()
         setPedidos(data.pedidos)
-      } catch {
-        setErrorServidor('No se han podido cargar los pedidos')
+      } catch (error) {
+        const codigoError = obtenerErrorApi(
+          error,
+          API_ERRORS.ORDERS_LOAD_FAILED
+        );
+        setErrorServidor(
+          traducir(`API_ERRORS.${codigoError}`)
+        );
       } finally {
         setCargando(false)
       }
@@ -38,14 +46,14 @@ function Perfil() {
 
       {/* DATOS DEL USUARIO */}
       <section className="seccionPerfil">
-        <h1 className="tituloPerfil">Mi Perfil</h1>
+        <h1 className="tituloPerfil">{traducir("PROFILE.TITLE")}</h1>
         <div className="tarjetaPerfil">
           <div className="grupoDatoPerfil">
-            <span className="etiquetaPerfil">Email</span>
+            <span className="etiquetaPerfil">{traducir("PROFILE.EMAIL")}</span>
             <span className="valorPerfil">{usuario.email}</span>
           </div>
           <div className="grupoDatoPerfil">
-            <span className="etiquetaPerfil">Rol</span>
+            <span className="etiquetaPerfil">{traducir("PROFILE.ROLE")}</span>
             <span className="valorPerfil">{usuario.rol}</span>
           </div>
         </div>
@@ -53,20 +61,20 @@ function Perfil() {
 
       {/* HISTORIAL DE PEDIDOS */}
       <section className="seccionPerfil">
-        <h2 className="subtituloPerfil">Mis Pedidos</h2>
+        <h2 className="subtituloPerfil">{traducir("PROFILE.MY_ORDERS")}</h2>
 
         {errorServidor && (
           <p className="errorPerfil">{errorServidor}</p>
         )}
 
         {pedidos.length === 0 ? (
-          <p className="sinPedidosPerfil">No tienes pedidos todavía.</p>
+          <p className="sinPedidosPerfil">{traducir("PROFILE.NO_ORDERS")}.</p>
         ) : (
           <div className="listaPedidosPerfil">
             {pedidos.map((pedido) => (
               <div key={pedido.id} className="tarjetaPedidoPerfil">
                 <div className="cabeceraPedidoPerfil">
-                  <span className="idPedidoPerfil">Pedido #{pedido.id}</span>
+                  <span className="idPedidoPerfil">{traducir("PROFILE.ORDER_NUMBER")}{pedido.id}</span>
                   <span className={`estadoPedidoPerfil estado-${pedido.estado.toLowerCase()}`}>
                     {pedido.estado}
                   </span>
@@ -97,7 +105,7 @@ function Perfil() {
       </section>
       {usuario.rol === 'admin' && (
         <Link to="/admin" className="botonAdmin">
-          Panel de Administración →
+          {traducir("PROFILE.ADMIN_PANEL")}
         </Link>
       )}
     </div>

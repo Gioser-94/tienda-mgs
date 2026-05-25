@@ -5,6 +5,7 @@ import {
     formatearDescuento,
     calcularPrecioConDescuento
 } from '../../utils/formatters';
+import { useTranslation } from "react-i18next";
 
 /* eslint-disable react/prop-types */
 
@@ -14,7 +15,10 @@ import {
     La desestructuración { producto } extrae directamente la prop 'producto' del objeto props
     Equivalente a: function ProductoCard(props) { const producto = props.producto }
 */
+
+
 function ProductoCard({ producto }) {
+    const { i18n } = useTranslation();
     const precioFinal = calcularPrecioConDescuento(producto.precio, producto.descuento)
 
     return (
@@ -28,11 +32,11 @@ function ProductoCard({ producto }) {
                     <h3 className="producto-nombre">{producto.nombre}</h3>
                     {producto.descuento > 0 ? (
                         <>
-                            <p className="producto-precio-original"><s>{formatearPrecio(producto.precio)}</s></p>
-                            <p className="producto-precio-descuento">{formatearPrecio(precioFinal)} ({formatearDescuento(producto.descuento)})</p>
+                            <p className="producto-precio-original"><s>{formatearPrecio(producto.precio, i18n.language)}</s></p>
+                            <p className="producto-precio-descuento">{formatearPrecio(precioFinal, i18n.language)} ({formatearDescuento(producto.descuento)})</p>
                         </>
                     ) : (
-                        <p className="producto-precio">{formatearPrecio(producto.precio)}</p>
+                        <p className="producto-precio">{formatearPrecio(producto.precio, i18n.language)}</p>
                     )}
                 </div>
             </Link>

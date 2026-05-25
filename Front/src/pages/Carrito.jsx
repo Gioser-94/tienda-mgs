@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-
+import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Spinner from '../components/ui/spinner/Spinner';
 import { formatearPrecio } from '../utils/formatters';
@@ -8,6 +8,7 @@ import './Carrito.css';
 
 function Carrito() {
     const { t: traducir } = useTranslation();
+    const navigate = useNavigate();
 
     const {
         carrito,
@@ -114,8 +115,8 @@ function Carrito() {
                 {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotal())}
             </h2>
 
-            <button className="btn-checkout">
-                {traducir('CART.CHECKOUT')}
+            <button className="btn-checkout" onClick={() => navigate('/checkout')}>
+                {traducir('CHECKOUT.TITLE')}
             </button>
         </div>
     );
