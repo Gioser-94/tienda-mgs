@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useAuth } from '../context/AuthContext'
-import { orderService } from '../services/Orders/orderService'
-import Spinner from '../components/ui/spinner/Spinner'
-import './Perfil.css'
-import { Link } from 'react-router-dom'
-import { obtenerErrorApi } from '../utils/apiErrorHandler'
-import { API_ERRORS } from '../constants/apiErrors'
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../context/AuthContext';
+import { orderService } from '../services/Orders/orderService';
+import Spinner from '../components/ui/spinner/Spinner';
+import './Perfil.css';
+import { Link } from 'react-router-dom';
+import { obtenerErrorApi } from '../utils/apiErrorHandler';
+import { API_ERRORS } from '../constants/apiErrors';
+import { formatearPrecio } from '../utils/formatters';
 
 function Perfil() {
-  const { t: traducir } = useTranslation()
+  const { t: traducir, i18n } = useTranslation()
   const { usuario } = useAuth()
 
   const [pedidos, setPedidos] = useState([])
@@ -85,7 +86,7 @@ function Perfil() {
                     <div key={linea.id} className="lineaPedidoPerfil">
                       <span>{linea.producto.nombre}</span>
                       <span>x{linea.cantidad}</span>
-                      <span>{linea.subtotal}€</span>
+                      <span>{formatearPrecio(linea.subtotal, i18n.language)}</span>
                     </div>
                   ))}
                 </div>
@@ -95,7 +96,7 @@ function Perfil() {
                     {new Date(pedido.fecha).toLocaleDateString()}
                   </span>
                   <span className="totalPedidoPerfil">
-                    Total: {pedido.total}€
+                    Total: {formatearPrecio(pedido.total, i18n.language)}
                   </span>
                 </div>
               </div>

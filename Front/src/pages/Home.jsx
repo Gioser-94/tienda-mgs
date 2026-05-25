@@ -14,6 +14,10 @@ function Home() {
   const [errorServidor, setErrorServidor] = useState("");
   const { t: traducir } = useTranslation();
 
+  const mezclar = (array) => {
+      return [...array].sort(() => Math.random() - 0.5)
+  }
+
   useEffect(() => {
     const cargarProductos = async () => {
       try {
@@ -21,8 +25,8 @@ function Home() {
         setErrorServidor("");
 
         const data = await productoService.obtenerProductos();
-
-        setProductos(data);
+        
+        setProductos(mezclar(data));
 
       } catch (error) {
         const codigoError = obtenerErrorApi(

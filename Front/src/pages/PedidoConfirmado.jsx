@@ -4,7 +4,7 @@ import { formatearPrecio } from '../utils/formatters';
 import './PedidoConfirmado.css';
 
 function PedidoConfirmado() {
-    const { t: traducir } = useTranslation();
+    const { t: traducir, i18n } = useTranslation();
     const navigate = useNavigate();
     const location = useLocation();
     const pedido = location.state?.pedido;
@@ -23,7 +23,7 @@ function PedidoConfirmado() {
                     </p>
                     <p>
                         <span>{traducir('ORDER.ORDER_TOTAL')}:</span>
-                        <strong>{formatearPrecio(pedido.total)}</strong>
+                        <strong>{formatearPrecio(pedido.total, i18n.language)}</strong>
                     </p>
                     <p>
                         <span>{traducir('ORDER.ORDER_STATUS')}:</span>
