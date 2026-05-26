@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { adminService } from '../../services/Admin/adminService'
 import { productoService } from '../../services/Productos/productoService'
 import './Admin.css'
+import api from '../../services/api'
 
 function AdminProductos() {
   const [productos, setProductos] = useState([])
@@ -29,20 +30,20 @@ function AdminProductos() {
   }, [])
 
   const cargarDatos = async () => {
-    try {
-      setCargando(true)
-      const [dataProductos, dataCategorias] = await Promise.all([
-        adminService.getTodosProductos(),
-        fetch('http://localhost:3000/api/categories').then(r => r.json())
-      ])
-      setProductos(dataProductos.productos) 
-      setCategorias(dataCategorias.categorias)
-    } catch {
-      setError('No se han podido cargar los productos')
-    } finally {
-      setCargando(false)
-    }
+  try {
+    setCargando(true)
+    const [dataProductos, dataCategorias] = await Promise.all([
+      adminService.getTodosProductos(),
+      api.get('/categories')
+    ])
+    setProductos(dataProductos.productos)
+    setCategorias(dataCategorias.data.categorias)
+  } catch {
+    setError('No se han podido cargar los productos')
+  } finally {
+    setCargando(false)
   }
+}
 
   const handleChange = (e) => {
     const { name, value } = e.target
