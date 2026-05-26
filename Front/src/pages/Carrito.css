@@ -56,3 +56,20 @@
     cursor: pointer;
     font-size: 20px;
 }
+
+.btn-carrito-volver {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    background-color: #193eb8;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-carrito-volver:hover {
+    background-color: #1535a0;
+}

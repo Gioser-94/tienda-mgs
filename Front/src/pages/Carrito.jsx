@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import Spinner from '../components/ui/spinner/Spinner';
 import { formatearPrecio } from '../utils/formatters';
@@ -26,6 +26,9 @@ function Carrito() {
             <div className="carrito-container">
                 <h1>{traducir('CART.TITLE')}</h1>
                 <p>{traducir('CART.EMPTY')}</p>
+                <Link to="/" className="btn-carrito-volver">
+                    {traducir('CART.EXPLORE_ARTICLES')}
+                </Link>
             </div>
         );
     }

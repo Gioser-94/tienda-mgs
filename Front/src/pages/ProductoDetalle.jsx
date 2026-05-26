@@ -12,10 +12,12 @@ import {
   calcularPrecioConDescuento
 } from "../utils/formatters";
 import { useCart } from "../context/CartContext";
+import { useToast } from '../context/ToastContext';
 
 function ProductoDetalle() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { mostrarToast } = useToast();
   const { t: traducir, i18n } = useTranslation();
   const { addProductoCarrito } = useCart();
   const [producto, setProducto] = useState(null);
@@ -114,6 +116,7 @@ function ProductoDetalle() {
 
   const handleAddCarrito = async () => {
       await addProductoCarrito(producto.id, 1);
+      mostrarToast(traducir('TOAST.ADDED_TO_CART'));
   };
 
   return (

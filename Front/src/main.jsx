@@ -2,12 +2,11 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
-
+import { CartProvider } from './context/CartContext.jsx';
+import { ToastProvider } from './context/ToastContext.jsx';
 import './index.css';
 import App from './App.jsx';
-
 import './i18n/i18n.js';
-import { CartProvider } from './context/CartContext.jsx';
 
 createRoot(document.getElementById('root')).render(
 
@@ -15,7 +14,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <App />
+          <ToastProvider>
+            <App />
+          </ToastProvider>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>
