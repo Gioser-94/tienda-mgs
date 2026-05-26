@@ -44,3 +44,29 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+.homeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.selectCategoria {
+  padding: 0.6rem 1rem;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+  background: #fff;
+  color: #2b2f38;
+  font-weight: 500;
+  transition: border-color 0.2s ease;
+}
+
+.selectCategoria:focus {
+  border-color: #0d7dfd;
+}
