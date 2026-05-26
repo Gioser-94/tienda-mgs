@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import Spinner from '../components/ui/spinner/Spinner';
-import { formatearPrecio } from '../utils/formatters';
+import { useCart } from '../../context/CartContext';
+import Spinner from '../../components/ui/spinner/Spinner';
+import { formatearPrecio } from '../../utils/formatters';
 
 import './Carrito.css';
 
@@ -14,7 +14,8 @@ function Carrito() {
         carrito,
         cargandoCarrito,
         updateProductoCarrito,
-        deleteProductoCarrito
+        deleteProductoCarrito,
+        calcularTotalCarrito
     } = useCart();
 
     if (cargandoCarrito) {
@@ -32,15 +33,6 @@ function Carrito() {
             </div>
         );
     }
-
-    const calcularTotal = () => {
-        return carrito.items.reduce((total, item) => {
-            return (
-                total +
-                Number(item.producto.precio) * Number(item.cantidad)
-            );
-        }, 0);
-    };
 
     return (
         <div className="carrito-container">
@@ -118,7 +110,7 @@ function Carrito() {
             </div>
 
             <h2 className="carrito-total">
-                {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotal(), i18n.language)}
+                {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotalCarrito(), i18n.language)}
             </h2>
 
             <button className="btn-checkout" onClick={() => navigate('/checkout')}>

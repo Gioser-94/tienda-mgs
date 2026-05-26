@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { traducirError } from '../utils/errorTranslator'
-import { validarNombre, validarEmail, validarMensaje, validarAsunto } from '../utils/validators'
-import Spinner from '../components/ui/spinner/Spinner'
+import { traducirError } from '../../utils/errorTranslator'
+import { validarNombre, validarEmail, validarMensaje, validarAsunto } from '../../utils/validators'
+import Spinner from '../../components/ui/spinner/Spinner'
 import './Contacto.css'
 
 const FORMULARIO_VACIO = {

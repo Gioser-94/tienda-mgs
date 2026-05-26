@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AdminProductos from '../components/admin/AdminProductos';
-import AdminPedidos from '../components/admin/AdminPedidos';
-import AdminUsuarios from '../components/admin/AdminUsuarios';
+import AdminProductos from '../../components/admin/AdminProductos';
+import AdminPedidos from '../../components/admin/AdminPedidos';
+import AdminUsuarios from '../../components/admin/AdminUsuarios';
 import './Admin.css';
 
 function Admin() {

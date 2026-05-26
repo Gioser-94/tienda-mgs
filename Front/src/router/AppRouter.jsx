@@ -1,20 +1,18 @@
 import { Routes, Route } from "react-router-dom";
-
 import MainLayout from "../layouts/MainLayout";
 import PrivateRoute from '../components/auth/PrivateRoute';
-
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Registro from "../pages/Registro";
-import Perfil from "../pages/Perfil";
-import Carrito from "../pages/Carrito";
-import ProductoDetalle from "../pages/ProductoDetalle";
-import Contacto from "../pages/Contacto";
-import Acerca from "../pages/Acerca";
+import Home from "../pages/Home/Home";
+import Login from "../pages/Login/Login";
+import Registro from "../pages/Registro/Registro";
+import Perfil from "../pages/Perfil/Perfil";
+import Carrito from "../pages/Carrito/Carrito";
+import ProductoDetalle from "../pages/ProductoDetalle/ProductoDetalle";
+import Contacto from "../pages/Contacto/Contacto";
+import Acerca from "../pages/Acerca/Acerca";
 import AdminRoute from '../components/auth/AdminRoute';
-import Admin from '../pages/Admin';
-import Checkout from '../pages/Checkout';
-import PedidoConfirmado from '../pages/PedidoConfirmado';
+import Admin from '../pages/Admin/Admin';
+import Checkout from '../pages/Checkout/Checkout';
+import PedidoConfirmado from '../pages/PedidoConfirmado/PedidoConfirmado';
 
 function AppRouter() {
   return (

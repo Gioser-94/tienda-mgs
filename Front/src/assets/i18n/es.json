@@ -237,6 +237,12 @@
         "TOAST_USER_DELETED": "Usuario eliminado ✓"
     },
 
+    "FOOTER": {
+        "RIGHTS": "© 2026 Tienda de Componentes. Todos los derechos reservados.",
+        "CONTACT": "Contacto",
+        "ABOUT": "Sobre nosotros"
+    },
+
     "TOAST": {
         "ADDED_TO_CART": "Producto añadido al carrito 🛒"
     },

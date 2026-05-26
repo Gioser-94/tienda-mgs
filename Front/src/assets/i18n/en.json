@@ -237,6 +237,12 @@
         "TOAST_USER_DELETED": "User deleted ✓"
     },
 
+    "FOOTER": {
+        "RIGHTS": "© 2026 Components Store. All rights reserved.",
+        "CONTACT": "Contact",
+        "ABOUT": "About us"
+    },
+
     "TOAST": {
         "ADDED_TO_CART": "Product added to cart 🛒"
     },

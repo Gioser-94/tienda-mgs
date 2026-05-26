@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import "./Home.css";
-import ProductoCard from "../components/products/ProductoCard";
-import Carousel from "../components/carousel/Carousel";
-import Spinner from "../components/ui/spinner/Spinner";
-import { productoService } from "../services/Productos/productoService";
-import { API_ERRORS } from "../constants/apiErrors";
-import { obtenerErrorApi } from "../utils/apiErrorHandler";
+import ProductoCard from "../../components/products/ProductoCard";
+import Carousel from "../../components/carousel/Carousel";
+import Spinner from "../../components/ui/spinner/Spinner";
+import { productoService } from "../../services/Productos/productoService";
+import { API_ERRORS } from "../../constants/apiErrors";
+import { obtenerErrorApi } from "../../utils/apiErrorHandler";
 
 function Home() {
   const [productos, setProductos] = useState([]);
