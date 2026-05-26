@@ -112,8 +112,12 @@ export const login = async (req, res) => {
 
 // ── LOGOUT ────────────────────────────────────────────
 export const logout = (req, res) => {
-  res.clearCookie('token')
-  return res.json({ message: 'Sesión cerrada correctamente' })
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure:   process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+    })
+    return res.json({ message: 'Sesión cerrada correctamente' })
 }
 
 // ── ME (datos del usuario logueado) ───────────────────
