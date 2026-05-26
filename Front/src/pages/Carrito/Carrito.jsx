@@ -3,121 +3,116 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import Spinner from '../../components/ui/spinner/Spinner';
 import { formatearPrecio } from '../../utils/formatters';
-
 import './Carrito.css';
 
 function Carrito() {
-    const { t: traducir, i18n } = useTranslation();
-    const navigate = useNavigate();
+  const { t: traducir, i18n } = useTranslation();
+  const navigate = useNavigate();
 
-    const {
-        carrito,
-        cargandoCarrito,
-        updateProductoCarrito,
-        deleteProductoCarrito,
-        calcularTotalCarrito
-    } = useCart();
+  const {
+    carrito,
+    carritoLocal,
+    cargandoCarrito,
+    updateProductoCarrito,
+    deleteProductoCarrito,
+    calcularTotalCarrito,
+    estaLogueado
+  } = useCart()
 
-    if (cargandoCarrito) {
-        return <Spinner />;
-    }
+  if (cargandoCarrito) return <Spinner />
 
-    if (!carrito || carrito.items.length === 0) {
-        return (
-            <div className="carrito-container">
-                <h1>{traducir('CART.TITLE')}</h1>
-                <p>{traducir('CART.EMPTY')}</p>
-                <Link to="/" className="btn-carrito-volver">
-                    {traducir('CART.EXPLORE_ARTICLES')}
-                </Link>
-            </div>
-        );
-    }
+  // Unificamos los items según si está logueado o no
+  const items = estaLogueado
+    ? carrito?.items || []
+    : carritoLocal.map(i => ({
+        id:       i.productoId,
+        cantidad: i.cantidad,
+        producto: i.producto
+      }))
 
+  if (items.length === 0) {
     return (
-        <div className="carrito-container">
-            <h1>{traducir('CART.TITLE')}</h1>
+      <div className="carrito-container">
+        <h1>{traducir('CART.TITLE')}</h1>
+        <p>{traducir('CART.EMPTY')}</p>
+        <Link to="/" className="btn-carrito-volver">
+          {traducir('CART.EXPLORE_ARTICLES')}
+        </Link>
+      </div>
+    )
+  }
 
-            <div className="carrito-lista">
-                {carrito.items.map((item) => (
-                    <div className="carrito-item" key={item.id}>
-                        <img
-                            src={item.producto.imagen}
-                            alt={item.producto.nombre}
-                            className="carrito-img"
-                        />
+  return (
+    <div className="carrito-container">
+      <h1>{traducir('CART.TITLE')}</h1>
 
-                        <div className="carrito-info">
-                            <h3>{item.producto.nombre}</h3>
+      <div className="carrito-lista">
+        {items.map((item) => (
+          <div className="carrito-item" key={item.id}>
+            <img
+              src={item.producto.imagen}
+              alt={item.producto.nombre}
+              className="carrito-img"
+            />
 
-                            <p>
-                                {traducir('CART.PRICE')}:{' '}
-                                {formatearPrecio(item.producto.precio, i18n.language)}
-                            </p>
+            <div className="carrito-info">
+              <h3>{item.producto.nombre}</h3>
 
-                            <p>
-                                {traducir('CART.QUANTITY')}:{' '}
-                                {Number(item.cantidad)}
-                            </p>
+              <p>
+                {traducir('CART.PRICE')}:{' '}
+                {formatearPrecio(item.producto.precio, i18n.language)}
+              </p>
 
-                            <p>
-                                {traducir('CART.SUBTOTAL')}:{' '}
-                                {formatearPrecio(
-                                    Number(item.producto.precio) * Number(item.cantidad), i18n.language
-                                )}
-                            </p>
+              <p>
+                {traducir('CART.QUANTITY')}:{' '}
+                {Number(item.cantidad)}
+              </p>
 
-                            <div className="carrito-acciones">
-                                <button
-                                    className="btn-carrito-dementar"
-                                    onClick={() =>
-                                        updateProductoCarrito(
-                                            item.producto.id,
-                                            Number(item.cantidad) - 1
-                                        )
-                                    }
-                                    disabled={Number(item.cantidad) <= 1}
-                                >
-                                    -
-                                </button>
+              <p>
+                {traducir('CART.SUBTOTAL')}:{' '}
+                {formatearPrecio(
+                  Number(item.producto.precio) * Number(item.cantidad),
+                  i18n.language
+                )}
+              </p>
 
-                                <button
-                                    className="btn-carrito-incrementar"
-                                    onClick={() =>
-                                        updateProductoCarrito(
-                                            item.producto.id,
-                                            Number(item.cantidad) + 1
-                                        )
-                                    }
-                                >
-                                    +
-                                </button>
+              <div className="carrito-acciones">
+                <button
+                  className="btn-carrito-dementar"
+                  onClick={() => updateProductoCarrito(item.producto.id, Number(item.cantidad) - 1)}
+                  disabled={Number(item.cantidad) <= 1}
+                >
+                  -
+                </button>
 
-                                <button
-                                    className="btn-carrito-eliminar"
-                                    onClick={() =>
-                                        deleteProductoCarrito(
-                                            item.producto.id
-                                        )
-                                    }
-                                >
-                                    {traducir('CART.DELETE')}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
+                <button
+                  className="btn-carrito-incrementar"
+                  onClick={() => updateProductoCarrito(item.producto.id, Number(item.cantidad) + 1)}
+                >
+                  +
+                </button>
+
+                <button
+                  className="btn-carrito-eliminar"
+                  onClick={() => deleteProductoCarrito(item.producto.id)}
+                >
+                  {traducir('CART.DELETE')}
+                </button>
+              </div>
             </div>
+          </div>
+        ))}
+      </div>
 
-            <h2 className="carrito-total">
-                {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotalCarrito(), i18n.language)}
-            </h2>
+      <h2 className="carrito-total">
+        {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotalCarrito(), i18n.language)}
+      </h2>
 
-            <button className="btn-checkout" onClick={() => navigate('/checkout')}>
-                {traducir('CHECKOUT.TITLE')}
-            </button>
-        </div>
-    );
+      <button className="btn-checkout" onClick={() => navigate('/checkout')}>
+        {traducir('CHECKOUT.TITLE')}
+      </button>
+    </div>
+  )
 }
 
-export default Carrito;
+export default Carrito
