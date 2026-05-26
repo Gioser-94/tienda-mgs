@@ -9,3 +9,13 @@
 .info-footer a{
     margin: 0 10px;
 }
+
+.footer-link {
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.footer-link:hover {
+    opacity: 0.75;
+}

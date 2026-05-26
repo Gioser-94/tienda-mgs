@@ -2,12 +2,12 @@ import { useState } from 'react'
 import './Registro.css'
 import {Link} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { validarConfirmPassword, validarNombre, validarPassword, validarTelefono, validarEmail } from '../utils/validators';
-import { traducirError } from '../utils/errorTranslator';
-import { authService } from '../services/Auth/authService';
-import { API_ERRORS } from '../constants/apiErrors';
-import { obtenerErrorApi } from '../utils/apiErrorHandler';
-import Spinner from '../components/ui/spinner/Spinner';
+import { validarConfirmPassword, validarNombre, validarPassword, validarTelefono, validarEmail } from '../../utils/validators';
+import { traducirError } from '../../utils/errorTranslator';
+import { authService } from '../../services/Auth/authService';
+import { API_ERRORS } from '../../constants/apiErrors';
+import { obtenerErrorApi } from '../../utils/apiErrorHandler';
+import Spinner from '../../components/ui/spinner/Spinner';
 
 function Registro() {
     const { t: traducir } = useTranslation();

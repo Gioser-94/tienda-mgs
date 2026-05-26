@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { acercaEs } from '../assets/i18n/acerca.es';
-import { acercaEn } from '../assets/i18n/acerca.en';
+import { acercaEs } from '../../assets/i18n/acerca.es';
+import { acercaEn } from '../../assets/i18n/acerca.en';
 import './Acerca.css';
 
 function Acerca() {

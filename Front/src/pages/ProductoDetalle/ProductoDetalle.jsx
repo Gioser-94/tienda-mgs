@@ -2,17 +2,17 @@ import { useParams, useNavigate} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import './ProductoDetalle.css';
-import { productoService } from "../services/Productos/productoService";
-import { API_ERRORS } from "../constants/apiErrors";
-import { obtenerErrorApi } from "../utils/apiErrorHandler";
-import Spinner from "../components/ui/spinner/Spinner";
+import { productoService } from "../../services/Productos/productoService";
+import { API_ERRORS } from "../../constants/apiErrors";
+import { obtenerErrorApi } from "../../utils/apiErrorHandler";
+import Spinner from "../../components/ui/spinner/Spinner";
 import {
   formatearPrecio,
   formatearDescuento,
   calcularPrecioConDescuento
-} from "../utils/formatters";
-import { useCart } from "../context/CartContext";
-import { useToast } from '../context/ToastContext';
+} from "../../utils/formatters";
+import { useCart } from "../../context/CartContext";
+import { useToast } from '../../context/ToastContext';
 
 function ProductoDetalle() {
   const { id } = useParams();

@@ -60,6 +60,14 @@ export const CartProvider = ({ children }) => {
         );
     };
 
+    const calcularTotalCarrito = () => {
+        if (!carrito?.items) return 0;
+        return carrito.items.reduce(
+            (total, item) => total + Number(item.producto.precio) * Number(item.cantidad),
+            0
+        );
+    };
+
     const vaciarCarrito = async () => {
         await clearCarrito();
         setCarrito(null);
@@ -81,7 +89,8 @@ export const CartProvider = ({ children }) => {
         updateProductoCarrito,
         deleteProductoCarrito,
         contarProductosCarrito,
-        vaciarCarrito
+        vaciarCarrito,
+        calcularTotalCarrito
     };
 
     return (

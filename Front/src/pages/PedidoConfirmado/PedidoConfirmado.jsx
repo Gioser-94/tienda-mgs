@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { formatearPrecio } from '../utils/formatters';
+import { formatearPrecio } from '../../utils/formatters';
 import './PedidoConfirmado.css';
 
 function PedidoConfirmado() {
