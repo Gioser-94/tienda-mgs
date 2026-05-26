@@ -14,7 +14,9 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors({
-  origin: true,  
+  origin: process.env.NODE_ENV === 'production' 
+    ? 'https://tienda-mgs-front.onrender.com'
+    : 'http://localhost:5173',
   credentials: true
 }))
 
