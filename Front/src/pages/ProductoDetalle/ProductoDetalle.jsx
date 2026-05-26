@@ -115,9 +115,9 @@ function ProductoDetalle() {
   );
 
   const handleAddCarrito = async () => {
-      await addProductoCarrito(producto.id, 1);
-      mostrarToast(traducir('TOAST.ADDED_TO_CART'));
-  };
+    await addProductoCarrito(producto.id, 1, producto)
+    mostrarToast(traducir('TOAST.ADDED_TO_CART'))
+  }
 
   return (
     <div className="detalle-container">
