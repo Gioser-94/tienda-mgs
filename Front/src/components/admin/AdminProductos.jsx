@@ -1,17 +1,14 @@
-import { useState, useEffect } from 'react'
-import { adminService } from '../../services/Admin/adminService'
-import { productoService } from '../../services/Productos/productoService'
-import './Admin.css'
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next'
+import { adminService } from '../../services/Admin/adminService';
+import { API_ERRORS } from '../../constants/apiErrors';
+import { obtenerErrorApi } from '../../utils/apiErrorHandler';
+import { formatearPrecio } from '../../utils/formatters';
+import { useToast } from '../../context/ToastContext';
+import Spinner from '../ui/spinner/Spinner';
+import './Admin.css';
 
-function AdminProductos() {
-  const [productos, setProductos] = useState([])
-  const [categorias, setCategorias] = useState([])
-  const [cargando, setCargando] = useState(true)
-  const [error, setError] = useState('')
-  const [mostrarFormulario, setMostrarFormulario] = useState(false)
-  const [productoEditando, setProductoEditando] = useState(null)
-
-  const formularioVacio = {
+const FORMULARIO_VACIO = {
     nombre: '',
     descripcion: '',
     imagen: '',
@@ -20,34 +17,46 @@ function AdminProductos() {
     especificaciones: '',
     descuento: '',
     stock: ''
-  }
+}
 
-  const [formData, setFormData] = useState(formularioVacio)
+function AdminProductos() {
+  const { t: traducir, i18n } = useTranslation();
+  const { mostrarToast } = useToast();
+  const [productos, setProductos] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [errorServidor, setErrorServidor] = useState('');
+  const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  const [productoEditando, setProductoEditando] = useState(null);
+  const [formData, setFormData] = useState(FORMULARIO_VACIO);
+
 
   useEffect(() => {
     cargarDatos()
-  }, [])
+  }, []);
 
   const cargarDatos = async () => {
     try {
-      setCargando(true)
+      setCargando(true);
+      setErrorServidor('');
       const [dataProductos, dataCategorias] = await Promise.all([
         adminService.getTodosProductos(),
-        fetch('http://localhost:3000/api/categories').then(r => r.json())
-      ])
-      setProductos(dataProductos.productos) 
-      setCategorias(dataCategorias.categorias)
-    } catch {
-      setError('No se han podido cargar los productos')
+        adminService.getCategorias()
+      ]);
+      setProductos(dataProductos.productos);
+      setCategorias(dataCategorias.categorias);
+    } catch (error) {
+      const codigoError = obtenerErrorApi(error, API_ERRORS.PRODUCTS_LOAD_FAILED);
+      setErrorServidor(traducir(`API_ERRORS.${codigoError}`));
     } finally {
-      setCargando(false)
+      setCargando(false);
     }
-  }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-  }
+  };
 
   const handleEditar = (producto) => {
     setProductoEditando(producto)
@@ -62,19 +71,19 @@ function AdminProductos() {
       stock:            producto.stock
     })
     setMostrarFormulario(true)
-  }
+  };
 
   const handleNuevo = () => {
     setProductoEditando(null)
-    setFormData(formularioVacio)
+    setFormData(FORMULARIO_VACIO)
     setMostrarFormulario(true)
-  }
+  };
 
   const handleCancelar = () => {
     setMostrarFormulario(false)
     setProductoEditando(null)
-    setFormData(formularioVacio)
-  }
+    setFormData(FORMULARIO_VACIO)
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -87,42 +96,52 @@ function AdminProductos() {
         stock:            parseInt(formData.stock),
         descuento:        formData.descuento ? parseFloat(formData.descuento) : null,
         especificaciones: JSON.parse(formData.especificaciones.trim())
-      }
-      console.log('especificaciones raw:', JSON.stringify(formData.especificaciones))
+      };
+
       if (productoEditando) {
-        await adminService.actualizarProducto(productoEditando.id, datos)
+        await adminService.actualizarProducto(productoEditando.id, datos);
+        mostrarToast(traducir('ADMIN.TOAST_PRODUCT_UPDATED'));
       } else {
-        await adminService.crearProducto(datos)
+        await adminService.crearProducto(datos);
+        mostrarToast(traducir('ADMIN.TOAST_PRODUCT_CREATED'));
       }
 
-      handleCancelar()
-      cargarDatos()
-    } catch {
-      alert('Error al guardar el producto. Revisa que las especificaciones sean JSON válido')
+      handleCancelar();
+      cargarDatos();
+    } catch (error) {
+      const codigoError = obtenerErrorApi(
+        error,
+        productoEditando
+          ? API_ERRORS.PRODUCTS_UPDATE_FAILED
+          : API_ERRORS.PRODUCTS_CREATE_FAILED
+      );
+      mostrarToast(traducir(`API_ERRORS.${codigoError}`), 'error');
     }
-  }
+  };
 
   const handleToggleActivo = async (id, activoActual) => {
-    const accion = activoActual ? 'desactivar' : 'activar'
-    if (!confirm(`¿${accion} este producto?`)) return
+    const accion = activoActual ? traducir('ADMIN.DEACTIVATE') : traducir('ADMIN.ACTIVATE');
+    if (!window.confirm(traducir('ADMIN.CONFIRM_TOGGLE_PRODUCT', { accion }))) return
 
     try {
-      await adminService.actualizarProducto(id, { activo: !activoActual })
-      cargarDatos()
-    } catch {
-      alert(`Error al ${accion} el producto`)
+      await adminService.actualizarProducto(id, { activo: !activoActual });
+      mostrarToast(traducir('ADMIN.TOAST_PRODUCT_TOGGLED'));
+      cargarDatos();
+    } catch (error) {
+      const codigoError = obtenerErrorApi(error, API_ERRORS.PRODUCTS_UPDATE_FAILED);
+      mostrarToast(traducir(`API_ERRORS.${codigoError}`), 'error');
     }
   }
 
-  if (cargando) return <p>Cargando productos...</p>
-  if (error)    return <p className="errorAdmin">{error}</p>
+  if (cargando) return <Spinner />
+  if (errorServidor) return <p className="errorAdmin">{errorServidor}</p>
 
   return (
     <div>
       <div className="cabeceraSeccionAdmin">
-        <h2 className="tituloSeccionAdmin">Productos</h2>
+        <h2 className="tituloSeccionAdmin">{traducir('ADMIN.PRODUCTS_TITLE')}</h2>
         <button className="botonExitoAdmin" onClick={handleNuevo}>
-          + Nuevo producto
+          {traducir('ADMIN.NEW_PRODUCT')}
         </button>
       </div>
 
@@ -130,12 +149,12 @@ function AdminProductos() {
       {mostrarFormulario && (
         <div className="formularioAdmin">
           <h3 className="tituloFormularioAdmin">
-            {productoEditando ? 'Editar producto' : 'Nuevo producto'}
+            {productoEditando ? traducir('ADMIN.EDIT_PRODUCT') : traducir('ADMIN.CREATE_PRODUCT')}
           </h3>
 
           <form onSubmit={handleSubmit} className="gridFormularioAdmin">
             <div className="grupoFormularioAdmin">
-              <label>Nombre *</label>
+              <label>{traducir('ADMIN.FIELD_NAME')}</label>
               <input
                 name="nombre"
                 value={formData.nombre}
@@ -145,7 +164,7 @@ function AdminProductos() {
             </div>
 
             <div className="grupoFormularioAdmin">
-              <label>Imagen (nombre del archivo) *</label>
+              <label>{traducir('ADMIN.FIELD_IMAGE')}</label>
               <input
                 name="imagen"
                 value={formData.imagen}
@@ -156,7 +175,7 @@ function AdminProductos() {
             </div>
 
             <div className="grupoFormularioAdmin">
-              <label>Precio *</label>
+              <label>{traducir('ADMIN.FIELD_PRICE')}</label>
               <input
                 name="precio"
                 type="number"
@@ -168,7 +187,7 @@ function AdminProductos() {
             </div>
 
             <div className="grupoFormularioAdmin">
-              <label>Stock *</label>
+              <label>{traducir('ADMIN.FIELD_STOCK')}</label>
               <input
                 name="stock"
                 type="number"
@@ -179,14 +198,14 @@ function AdminProductos() {
             </div>
 
             <div className="grupoFormularioAdmin">
-              <label>Categoría *</label>
+              <label>{traducir('ADMIN.FIELD_CATEGORY')}</label>
               <select
                 name="categoria_id"
                 value={formData.categoria_id}
                 onChange={handleChange}
                 required
               >
-                <option value="">Selecciona categoría</option>
+                <option value="">{traducir('ADMIN.SELECT_CATEGORY')}</option>
                 {categorias.map(c => (
                   <option key={c.id} value={c.id}>{c.nombre}</option>
                 ))}
@@ -194,7 +213,7 @@ function AdminProductos() {
             </div>
 
             <div className="grupoFormularioAdmin">
-              <label>Descuento (%)</label>
+              <label>{traducir('ADMIN.FIELD_DISCOUNT')}</label>
               <input
                 name="descuento"
                 type="number"
@@ -205,7 +224,7 @@ function AdminProductos() {
             </div>
 
             <div className="grupoFormularioAdmin grupoCompleto">
-              <label>Descripción</label>
+              <label>{traducir('ADMIN.FIELD_DESCRIPTION')}</label>
               <textarea
                 name="descripcion"
                 value={formData.descripcion}
@@ -215,7 +234,7 @@ function AdminProductos() {
             </div>
 
             <div className="grupoFormularioAdmin grupoCompleto">
-              <label>Especificaciones (JSON) *</label>
+              <label>{traducir('ADMIN.FIELD_SPECS')}</label>
               <textarea
                 name="especificaciones"
                 value={formData.especificaciones}
@@ -228,14 +247,14 @@ function AdminProductos() {
 
             <div className="accionesFormularioAdmin">
               <button type="submit" className="botonExitoAdmin">
-                {productoEditando ? 'Guardar cambios' : 'Crear producto'}
+                {productoEditando ? traducir('ADMIN.SAVE') : traducir('ADMIN.CREATE_PRODUCT')}
               </button>
               <button
                 type="button"
                 className="botonPeligroAdmin"
                 onClick={handleCancelar}
               >
-                Cancelar
+                {traducir('ADMIN.CANCEL')}
               </button>
             </div>
           </form>
@@ -246,14 +265,14 @@ function AdminProductos() {
       <table className="tablaAdmin">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Imagen</th>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Stock</th>
-            <th>Categoría</th>
-            <th>Activo</th>
-            <th>Acciones</th>
+            <th>{traducir('ADMIN.COL_ID')}</th>
+            <th>{traducir('ADMIN.COL_IMAGE')}</th>
+            <th>{traducir('ADMIN.COL_NAME')}</th>
+            <th>{traducir('ADMIN.COL_PRICE')}</th>
+            <th>{traducir('ADMIN.COL_STOCK')}</th>
+            <th>{traducir('ADMIN.COL_CATEGORY')}</th>
+            <th>{traducir('ADMIN.COL_ACTIVE')}</th>
+            <th>{traducir('ADMIN.COL_ACTIONS')}</th>
           </tr>
         </thead>
         <tbody>
@@ -268,12 +287,12 @@ function AdminProductos() {
                 />
               </td>
               <td>{producto.nombre}</td>
-              <td>{producto.precio}€</td>
+              <td className="celda-precio">{formatearPrecio(producto.precio, i18n.language)}</td>
               <td>{producto.stock}</td>
               <td>{producto.categoria.nombre}</td>
               <td>
                 <span className={`badgeRol ${producto.activo ? 'admin' : 'cliente'}`}>
-                  {producto.activo ? 'Activo' : 'Inactivo'}
+                  {producto.activo ? traducir('ADMIN.STATUS_ACTIVE') : traducir('ADMIN.STATUS_INACTIVE')}
                 </span>
               </td>
               <td className="accionesAdmin">
@@ -281,13 +300,13 @@ function AdminProductos() {
                   className="botonSecundarioAdmin"
                   onClick={() => handleEditar(producto)}
                 >
-                  Editar
+                  {traducir('ADMIN.EDIT')}
                 </button>
                 <button
                   className={producto.activo ? 'botonPeligroAdmin' : 'botonExitoAdmin'}
                   onClick={() => handleToggleActivo(producto.id, producto.activo)}
                 >
-                  {producto.activo ? 'Desactivar' : 'Activar'}
+                  {producto.activo ? traducir('ADMIN.DEACTIVATE') : traducir('ADMIN.ACTIVATE')}
                 </button>
               </td>
             </tr>

@@ -100,3 +100,11 @@
     font-family: Orbitron, Arial, sans-serif;
     font-size: 0.9rem;
 }
+
+.btn-header-profile:hover,
+.btn-header-carrito:hover,
+.btn-header-logout:hover,
+.btn-header-login:hover,
+.btn-header-register:hover {
+    background: rgba(255, 255, 255, 0.25);
+}

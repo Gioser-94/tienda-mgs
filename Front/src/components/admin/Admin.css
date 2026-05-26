@@ -29,6 +29,10 @@
   background: #efefef;
 }
 
+.tablaAdmin .celda-precio {
+    white-space: nowrap;
+}
+
 .accionesAdmin {
   display: flex;
   gap: 0.5rem;
