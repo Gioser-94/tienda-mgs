@@ -5,13 +5,13 @@ import "./Login.css";
 import {
     validarEmail,
     validarPassword
-} from "../utils/validators";
-import { traducirError } from "../utils/errorTranslator";
-import { authService } from "../services/Auth/authService";
-import { API_ERRORS } from "../constants/apiErrors";
-import { obtenerErrorApi } from "../utils/apiErrorHandler";
-import Spinner from "../components/ui/spinner/Spinner";
-import { useAuth } from "../context/AuthContext";
+} from "../../utils/validators";
+import { traducirError } from "../../utils/errorTranslator";
+import { authService } from "../../services/Auth/authService";
+import { API_ERRORS } from "../../constants/apiErrors";
+import { obtenerErrorApi } from "../../utils/apiErrorHandler";
+import Spinner from "../../components/ui/spinner/Spinner";
+import { useAuth } from "../../context/AuthContext";
 
 function Login() {
     const { t: traducir } = useTranslation();

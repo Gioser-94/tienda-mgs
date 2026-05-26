@@ -1,31 +1,31 @@
-import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useAuth } from '../context/AuthContext'
-import { orderService } from '../services/Orders/orderService'
-import Spinner from '../components/ui/spinner/Spinner'
-import './Perfil.css'
-import { Link } from 'react-router-dom'
-import { obtenerErrorApi } from '../utils/apiErrorHandler'
-import { API_ERRORS } from '../constants/apiErrors'
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAuth } from '../../context/AuthContext';
+import { orderService } from '../../services/Orders/orderService';
+import Spinner from '../../components/ui/spinner/Spinner';
+import './Perfil.css';
+import { Link } from 'react-router-dom';
+import { obtenerErrorApi } from '../../utils/apiErrorHandler';
+import { API_ERRORS } from '../../constants/apiErrors';
+import { formatearPrecio } from '../../utils/formatters';
+import { useToast } from '../../context/ToastContext';
 
 function Perfil() {
-  const { t: traducir } = useTranslation()
+  const { t: traducir, i18n } = useTranslation()
   const { usuario } = useAuth()
-
+  const { mostrarToast } = useToast()
   const [pedidos, setPedidos] = useState([])
   const [cargando, setCargando] = useState(true)
-  const [errorServidor, setErrorServidor] = useState('')
 
   useEffect(() => {
     const cargarPedidos = async () => {
       try {
         setCargando(true)
-        setErrorServidor('')
         const data = await orderService.getMisPedidos()
         setPedidos(data.pedidos)
       } catch (error) {
         const codigoError = obtenerErrorApi(error, API_ERRORS.ORDERS_LOAD_FAILED)
-        setErrorServidor(traducir(`API_ERRORS.${codigoError}`))
+        mostrarToast(traducir(`API_ERRORS.${codigoError}`), 'error')
       } finally {
         setCargando(false)
       }
@@ -84,10 +84,6 @@ function Perfil() {
       <section className="seccionPerfil">
         <h2 className="subtituloPerfil">{traducir("PROFILE.MY_ORDERS")}</h2>
 
-        {errorServidor && (
-          <p className="errorPerfil">{errorServidor}</p>
-        )}
-
         {pedidos.length === 0 ? (
           <p className="sinPedidosPerfil">{traducir("PROFILE.NO_ORDERS")}.</p>
         ) : (
@@ -105,7 +101,7 @@ function Perfil() {
                     <div key={linea.id} className="lineaPedidoPerfil">
                       <span>{linea.producto.nombre}</span>
                       <span>x{linea.cantidad}</span>
-                      <span>{linea.subtotal}€</span>
+                      <span>{formatearPrecio(linea.subtotal, i18n.language)}</span>
                     </div>
                   ))}
                 </div>
@@ -114,7 +110,7 @@ function Perfil() {
                     {new Date(pedido.fecha).toLocaleDateString()}
                   </span>
                   <span className="totalPedidoPerfil">
-                    Total: {pedido.total}€
+                    Total: {formatearPrecio(pedido.total, i18n.language)}
                   </span>
                 </div>
               </div>

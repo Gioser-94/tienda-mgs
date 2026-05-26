@@ -75,15 +75,15 @@ export const login = async (req, res) => {
 
     // Generamos el JWT
     const token = jwt.sign(
-    {
-      id:              usuario.id,
-      email:           usuario.email,
-      nombre_completo: usuario.nombre_completo,
-      rol:             usuario.rol
-    },
-    process.env.JWT_SECRET,
-    { expiresIn: '24h' }
-  )
+      {
+        id:              usuario.id,
+        email:           usuario.email,
+        nombre_completo: usuario.nombre_completo,
+        rol:             usuario.rol
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '24h' }
+    )
 
     // Metemos el token en la cookie httpOnly
     res.cookie('token', token, {
@@ -96,9 +96,11 @@ export const login = async (req, res) => {
     return res.json({
       message: 'Login correcto',
       usuario: {
-        id:    usuario.id,
+        id: usuario.id,
         email: usuario.email,
-        rol:   usuario.rol
+        nombre_completo: usuario.nombre_completo,
+        telefono: usuario.telefono,
+        rol: usuario.rol
       }
     })
 

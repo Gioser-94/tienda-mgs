@@ -50,7 +50,12 @@ export const adminService = {
   },
 
   async getTodosProductos() {
-  const response = await api.get('/products/all')
-  return response.data
-  }
+    const response = await api.get('/products/all')
+    return response.data
+  },
+
+  async getCategorias() {
+    const response = await api.get('/categories')
+    return response.data
+  },
 }

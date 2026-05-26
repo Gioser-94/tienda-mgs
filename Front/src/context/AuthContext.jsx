@@ -26,6 +26,18 @@ export const AuthProvider = ({ children }) => {
         comprobarSesion();
     }, []);
 
+    useEffect(() => {
+        const handleSessionExpired = () => {
+            setUsuario(null);
+        };
+
+        window.addEventListener('session-expired', handleSessionExpired);
+
+        return () => {
+            window.removeEventListener('session-expired', handleSessionExpired);
+        };
+    }, []);
+
     const value = {
         usuario,
         setUsuario,

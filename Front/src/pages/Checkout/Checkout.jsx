@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { useCart } from '../context/CartContext';
-import { useAuth } from '../context/AuthContext';
-import { orderService } from '../services/Orders/orderService';
-import { API_ERRORS } from '../constants/apiErrors';
-import { obtenerErrorApi } from '../utils/apiErrorHandler';
-import { formatearPrecio } from '../utils/formatters';
-import { traducirError } from '../utils/errorTranslator';
-import Spinner from '../components/ui/spinner/Spinner';
+import { useCart } from '../../context/CartContext';
+import { useAuth } from '../../context/AuthContext';
+import { orderService } from '../../services/Orders/orderService';
+import { API_ERRORS } from '../../constants/apiErrors';
+import { obtenerErrorApi } from '../../utils/apiErrorHandler';
+import { formatearPrecio } from '../../utils/formatters';
+import { traducirError } from '../../utils/errorTranslator';
+import Spinner from '../../components/ui/spinner/Spinner';
 
 import {
     validarNombre,
@@ -22,16 +22,16 @@ import {
     validarNumeroTarjeta,
     validarCaducidad,
     validarCVV
-} from '../utils/validators';
+} from '../../utils/validators';
 
 import './Checkout.css';
 
 const PASOS = { PERSONAL: 0, DIRECCION: 1, PAGO: 2 };
 
 function Checkout() {
-    const { t: traducir } = useTranslation();
+    const { t: traducir, i18n } = useTranslation();
     const navigate = useNavigate();
-    const { carrito, vaciarCarrito } = useCart();
+    const { carrito, vaciarCarrito, calcularTotalCarrito } = useCart();
     const { usuario } = useAuth();
 
     const [pasoActual, setPasoActual] = useState(PASOS.PERSONAL);
@@ -60,14 +60,6 @@ function Checkout() {
     });
 
     const [errores, setErrores] = useState({});
-
-    const calcularTotal = () => {
-        if (!carrito?.items) return 0;
-        return carrito.items.reduce(
-            (total, item) => total + Number(item.producto.precio) * Number(item.cantidad),
-            0
-        );
-    };
 
     const handleChangePersonal = (e) => {
         const { name, value } = e.target;
@@ -177,14 +169,14 @@ function Checkout() {
                             {item.producto.nombre} × {Number(item.cantidad)}
                         </span>
                         <span className="checkout-resumen-precio">
-                            {formatearPrecio(Number(item.producto.precio) * Number(item.cantidad))}
+                            {formatearPrecio(Number(item.producto.precio) * Number(item.cantidad), i18n.language)}
                         </span>
                     </li>
                 ))}
             </ul>
             <div className="checkout-resumen-total">
                 <strong>{traducir('CART.TOTAL')}:</strong>
-                <strong>{formatearPrecio(calcularTotal())}</strong>
+                <strong>{formatearPrecio(calcularTotalCarrito(), i18n.language)}</strong>
             </div>
         </aside>
     );

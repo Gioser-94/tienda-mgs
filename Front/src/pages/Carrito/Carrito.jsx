@@ -1,20 +1,21 @@
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
-import Spinner from '../components/ui/spinner/Spinner';
-import { formatearPrecio } from '../utils/formatters';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
+import Spinner from '../../components/ui/spinner/Spinner';
+import { formatearPrecio } from '../../utils/formatters';
 
 import './Carrito.css';
 
 function Carrito() {
-    const { t: traducir } = useTranslation();
+    const { t: traducir, i18n } = useTranslation();
     const navigate = useNavigate();
 
     const {
         carrito,
         cargandoCarrito,
         updateProductoCarrito,
-        deleteProductoCarrito
+        deleteProductoCarrito,
+        calcularTotalCarrito
     } = useCart();
 
     if (cargandoCarrito) {
@@ -26,18 +27,12 @@ function Carrito() {
             <div className="carrito-container">
                 <h1>{traducir('CART.TITLE')}</h1>
                 <p>{traducir('CART.EMPTY')}</p>
+                <Link to="/" className="btn-carrito-volver">
+                    {traducir('CART.EXPLORE_ARTICLES')}
+                </Link>
             </div>
         );
     }
-
-    const calcularTotal = () => {
-        return carrito.items.reduce((total, item) => {
-            return (
-                total +
-                Number(item.producto.precio) * Number(item.cantidad)
-            );
-        }, 0);
-    };
 
     return (
         <div className="carrito-container">
@@ -57,7 +52,7 @@ function Carrito() {
 
                             <p>
                                 {traducir('CART.PRICE')}:{' '}
-                                {formatearPrecio(item.producto.precio)}
+                                {formatearPrecio(item.producto.precio, i18n.language)}
                             </p>
 
                             <p>
@@ -68,12 +63,13 @@ function Carrito() {
                             <p>
                                 {traducir('CART.SUBTOTAL')}:{' '}
                                 {formatearPrecio(
-                                    Number(item.producto.precio) * Number(item.cantidad)
+                                    Number(item.producto.precio) * Number(item.cantidad), i18n.language
                                 )}
                             </p>
 
                             <div className="carrito-acciones">
                                 <button
+                                    className="btn-carrito-dementar"
                                     onClick={() =>
                                         updateProductoCarrito(
                                             item.producto.id,
@@ -86,6 +82,7 @@ function Carrito() {
                                 </button>
 
                                 <button
+                                    className="btn-carrito-incrementar"
                                     onClick={() =>
                                         updateProductoCarrito(
                                             item.producto.id,
@@ -97,6 +94,7 @@ function Carrito() {
                                 </button>
 
                                 <button
+                                    className="btn-carrito-eliminar"
                                     onClick={() =>
                                         deleteProductoCarrito(
                                             item.producto.id
@@ -112,7 +110,7 @@ function Carrito() {
             </div>
 
             <h2 className="carrito-total">
-                {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotal())}
+                {traducir('CART.TOTAL')}: {formatearPrecio(calcularTotalCarrito(), i18n.language)}
             </h2>
 
             <button className="btn-checkout" onClick={() => navigate('/checkout')}>

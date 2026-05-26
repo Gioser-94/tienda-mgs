@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import AdminProductos from '../components/admin/AdminProductos'
-import AdminPedidos from '../components/admin/AdminPedidos'
-import AdminUsuarios from '../components/admin/AdminUsuarios'
-import './Admin.css'
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import AdminProductos from '../../components/admin/AdminProductos';
+import AdminPedidos from '../../components/admin/AdminPedidos';
+import AdminUsuarios from '../../components/admin/AdminUsuarios';
+import './Admin.css';
 
 function Admin() {
-  const [pestanaActiva, setPestanaActiva] = useState('productos')
+  const { t: traducir } = useTranslation();
+  const [pestanaActiva, setPestanaActiva] = useState('productos');
 
   return (
     <div className="contenedorAdmin">
-      <h1 className="tituloAdmin">Panel de Administración</h1>
+      <h1 className="tituloAdmin">{traducir('ADMIN.PANEL_TITLE')}</h1>
 
       {/* PESTAÑAS */}
       <div className="pestanasAdmin">
@@ -17,19 +19,19 @@ function Admin() {
           className={`pestanaAdmin ${pestanaActiva === 'productos' ? 'activa' : ''}`}
           onClick={() => setPestanaActiva('productos')}
         >
-          Productos
+          {traducir('ADMIN.TAB_PRODUCTS')}
         </button>
         <button
           className={`pestanaAdmin ${pestanaActiva === 'pedidos' ? 'activa' : ''}`}
           onClick={() => setPestanaActiva('pedidos')}
         >
-          Pedidos
+          {traducir('ADMIN.TAB_ORDERS')}
         </button>
         <button
           className={`pestanaAdmin ${pestanaActiva === 'usuarios' ? 'activa' : ''}`}
           onClick={() => setPestanaActiva('usuarios')}
         >
-          Usuarios
+          {traducir('ADMIN.TAB_USERS')}
         </button>
       </div>
 

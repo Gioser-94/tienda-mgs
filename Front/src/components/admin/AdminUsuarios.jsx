@@ -1,66 +1,79 @@
-import { useState, useEffect } from 'react'
-import { adminService } from '../../services/Admin/adminService'
-import './Admin.css'
+import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { adminService } from '../../services/Admin/adminService';
+import { API_ERRORS } from '../../constants/apiErrors';
+import { obtenerErrorApi } from '../../utils/apiErrorHandler';
+import { useToast } from '../../context/ToastContext';
+import Spinner from '../ui/spinner/Spinner';
+import './Admin.css';
 
 function AdminUsuarios() {
-  const [usuarios, setUsuarios] = useState([])
-  const [cargando, setCargando] = useState(true)
-  const [error, setError] = useState('')
+  const { t: traducir } = useTranslation();
+  const { mostrarToast } = useToast();
+  const [usuarios, setUsuarios] = useState([]);
+  const [cargando, setCargando] = useState(true);
+  const [errorServidor, setErrorServidor] = useState('');
 
   useEffect(() => {
     cargarUsuarios()
-  }, [])
+  }, []);
 
   const cargarUsuarios = async () => {
     try {
       setCargando(true)
-      const data = await adminService.getUsuarios()
-      setUsuarios(data.usuarios)
-    } catch {
-      setError('No se han podido cargar los usuarios')
+      setErrorServidor('');
+      const data = await adminService.getUsuarios();
+      setUsuarios(data.usuarios);
+    } catch (error) {
+      const codigoError = obtenerErrorApi(error, API_ERRORS.USERS_LOAD_FAILED);
+      setErrorServidor(traducir(`API_ERRORS.${codigoError}`));
     } finally {
-      setCargando(false)
+      setCargando(false);
     }
-  }
+  };
 
   const handleCambiarRol = async (id, rolActual) => {
     const nuevoRol = rolActual === 'admin' ? 'cliente' : 'admin'
-    if (!confirm(`¿Cambiar rol a ${nuevoRol}?`)) return
+    if (!window.confirm(traducir('ADMIN.CONFIRM_CHANGE_ROLE', { rol: nuevoRol }))) return
 
     try {
-      await adminService.cambiarRol(id, nuevoRol)
-      cargarUsuarios()
-    } catch {
-      alert('Error al cambiar el rol')
+      await adminService.cambiarRol(id, nuevoRol);
+      mostrarToast(traducir('ADMIN.TOAST_USER_ROLE_CHANGED'));
+      cargarUsuarios();
+    } catch (error) {
+      const codigoError = obtenerErrorApi(error, API_ERRORS.USERS_UPDATE_FAILED);
+      mostrarToast(traducir(`API_ERRORS.${codigoError}`), 'error');
     }
-  }
+  };
 
   const handleEliminar = async (id) => {
-    if (!confirm('¿Eliminar este usuario? Esta acción no se puede deshacer')) return
+    if (!window.confirm(traducir('ADMIN.CONFIRM_DELETE_USER'))) return
 
     try {
-      await adminService.eliminarUsuario(id)
-      cargarUsuarios()
-    } catch {
-      alert('Error al eliminar el usuario')
+      await adminService.eliminarUsuario(id);
+      mostrarToast(traducir('ADMIN.TOAST_USER_DELETED'));
+      cargarUsuarios();
+    } catch (error) {
+      const codigoError = obtenerErrorApi(error, API_ERRORS.USERS_DELETE_FAILED);
+      mostrarToast(traducir(`API_ERRORS.${codigoError}`), 'error');
     }
-  }
+  };
 
-  if (cargando) return <p>Cargando usuarios...</p>
-  if (error)    return <p className="errorAdmin">{error}</p>
+  if (cargando) return <Spinner />
+  if (errorServidor) return <p className="errorAdmin">{errorServidor}</p>
 
   return (
     <div>
-      <h2 className="tituloSeccionAdmin">Usuarios</h2>
+      <h2 className="tituloSeccionAdmin">{traducir('ADMIN.USERS_TITLE')}</h2>
 
       <table className="tablaAdmin">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Rol</th>
-            <th>Fecha registro</th>
-            <th>Acciones</th>
+            <th>{traducir('ADMIN.COL_ID')}</th>
+            <th>{traducir('ADMIN.COL_EMAIL')}</th>
+            <th>{traducir('ADMIN.COL_ROLE')}</th>
+            <th>{traducir('ADMIN.COL_REGISTERED')}</th>
+            <th>{traducir('ADMIN.COL_ACTIONS')}</th>
           </tr>
         </thead>
         <tbody>
@@ -79,13 +92,13 @@ function AdminUsuarios() {
                   className="botonSecundarioAdmin"
                   onClick={() => handleCambiarRol(usuario.id, usuario.rol)}
                 >
-                  {usuario.rol === 'admin' ? 'Hacer cliente' : 'Hacer admin'}
+                  {usuario.rol === 'admin' ? traducir('ADMIN.MAKE_CLIENT') : traducir('ADMIN.MAKE_ADMIN')}
                 </button>
                 <button
                   className="botonPeligroAdmin"
                   onClick={() => handleEliminar(usuario.id)}
                 >
-                  Eliminar
+                  {traducir('ADMIN.DELETE')}
                 </button>
               </td>
             </tr>

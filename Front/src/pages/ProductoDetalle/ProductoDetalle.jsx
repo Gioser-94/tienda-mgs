@@ -2,21 +2,23 @@ import { useParams, useNavigate} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import './ProductoDetalle.css';
-import { productoService } from "../services/Productos/productoService";
-import { API_ERRORS } from "../constants/apiErrors";
-import { obtenerErrorApi } from "../utils/apiErrorHandler";
-import Spinner from "../components/ui/spinner/Spinner";
+import { productoService } from "../../services/Productos/productoService";
+import { API_ERRORS } from "../../constants/apiErrors";
+import { obtenerErrorApi } from "../../utils/apiErrorHandler";
+import Spinner from "../../components/ui/spinner/Spinner";
 import {
   formatearPrecio,
   formatearDescuento,
   calcularPrecioConDescuento
-} from "../utils/formatters";
-import { useCart } from "../context/CartContext";
+} from "../../utils/formatters";
+import { useCart } from "../../context/CartContext";
+import { useToast } from '../../context/ToastContext';
 
 function ProductoDetalle() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { t: traducir } = useTranslation();
+  const { mostrarToast } = useToast();
+  const { t: traducir, i18n } = useTranslation();
   const { addProductoCarrito } = useCart();
   const [producto, setProducto] = useState(null);
   const [cargando, setCargando] = useState(true);
@@ -114,6 +116,7 @@ function ProductoDetalle() {
 
   const handleAddCarrito = async () => {
       await addProductoCarrito(producto.id, 1);
+      mostrarToast(traducir('TOAST.ADDED_TO_CART'));
   };
 
   return (
@@ -128,20 +131,29 @@ function ProductoDetalle() {
           <p className="detalle-descripcion">{producto.descripcion}</p>
           {producto.descuento > 0 ? (
             <p className="detalle-precio">
-              <span className="precio-original"><s>{formatearPrecio(producto.precio)}</s></span>
-              <span className="precio-final">{formatearPrecio(precioFinal)}</span>
+              <span className="precio-original"><s>{formatearPrecio(producto.precio, i18n.language)}</s></span>
+              <span className="precio-final">{formatearPrecio(precioFinal, i18n.language)}</span>
               <span className="descuento">({formatearDescuento(producto.descuento)})</span>
             </p>
           ) : (
-            <p className="detalle-precio">{formatearPrecio(producto.precio)}</p>
+            <p className="detalle-precio">{formatearPrecio(producto.precio, i18n.language)}</p>
           )}
 
           <h3>{traducir("PRODUCT.SPECIFICATIONS")}</h3>
           <ul className="detalle-especificaciones">
             {Object.entries(producto.especificaciones)
-              .map(([clave, valor]) => 
-                <li key={clave}><strong>{clave}:</strong> {valor}</li>)
-            }
+    .map(([clave, valor]) => {
+        const claveTraducida = traducir(`SPECS.${clave}`, { defaultValue: clave })
+        const valorFormateado = typeof valor === 'boolean'
+            ? (valor ? '✓' : '✗')
+            : valor
+        return (
+            <li key={clave}>
+                <strong>{claveTraducida}:</strong> {valorFormateado}
+            </li>
+        )
+    })
+}
           </ul>
 
           <button className="btn-carrito" onClick={handleAddCarrito}>🛒 {traducir("PRODUCT.ADD_TO_CART")}</button>

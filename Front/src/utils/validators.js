@@ -145,3 +145,14 @@ export const validarCVV = (cvv) => {
     if (!regex.test(cvv)) return FORM_ERRORS.REQUIRED;
     return null;
 };
+
+export const validarMensaje = (mensaje) => {
+    if (!mensaje) return FORM_ERRORS.REQUIRED;
+    if (mensaje.trim().length < 10) return { code: FORM_ERRORS.MIN_LENGTH, values: { minLength: 10 } };
+    return null;
+};
+
+export const validarAsunto = (asunto) => {
+    if (!asunto) return FORM_ERRORS.REQUIRED;
+    return null;
+};

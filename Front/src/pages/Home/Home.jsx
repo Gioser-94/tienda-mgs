@@ -1,18 +1,22 @@
 import { useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import "./Home.css";
-import ProductoCard from "../components/products/ProductoCard";
-import Carousel from "../components/carousel/Carousel";
-import Spinner from "../components/ui/spinner/Spinner";
-import { productoService } from "../services/Productos/productoService";
-import { API_ERRORS } from "../constants/apiErrors";
-import { obtenerErrorApi } from "../utils/apiErrorHandler";
+import ProductoCard from "../../components/products/ProductoCard";
+import Carousel from "../../components/carousel/Carousel";
+import Spinner from "../../components/ui/spinner/Spinner";
+import { productoService } from "../../services/Productos/productoService";
+import { API_ERRORS } from "../../constants/apiErrors";
+import { obtenerErrorApi } from "../../utils/apiErrorHandler";
 
 function Home() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [errorServidor, setErrorServidor] = useState("");
   const { t: traducir } = useTranslation();
+
+  const mezclar = (array) => {
+      return [...array].sort(() => Math.random() - 0.5)
+  }
 
   useEffect(() => {
     const cargarProductos = async () => {
@@ -21,8 +25,8 @@ function Home() {
         setErrorServidor("");
 
         const data = await productoService.obtenerProductos();
-
-        setProductos(data);
+        
+        setProductos(mezclar(data));
 
       } catch (error) {
         const codigoError = obtenerErrorApi(

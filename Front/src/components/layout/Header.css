@@ -85,3 +85,26 @@
     text-decoration: none;
     margin: 0 5px;
 }
+
+.btn-header-profile,
+.btn-header-carrito,
+.btn-header-logout,
+.btn-header-login,
+.btn-header-register {
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    border: none;
+    padding: 7px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: Orbitron, Arial, sans-serif;
+    font-size: 0.9rem;
+}
+
+.btn-header-profile:hover,
+.btn-header-carrito:hover,
+.btn-header-logout:hover,
+.btn-header-login:hover,
+.btn-header-register:hover {
+    background: rgba(255, 255, 255, 0.25);
+}

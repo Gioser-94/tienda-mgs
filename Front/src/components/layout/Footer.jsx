@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import './Footer.css'
+import { useTranslation } from 'react-i18next';
+import './Footer.css';
 
 function Footer() {
+    const { t: traducir } = useTranslation();
     return (
         <footer className="footer">
             <div className="info-footer">
-                <p>© 2025 Tienda de Componentes. Todos los derechos reservados.</p>
-                <Link to={'/contacto'}>Contacto</Link>
-                <Link to={'/acerca'}>Sobre nosotros</Link>
+                <p>{traducir('FOOTER.RIGHTS')}.</p>
+                <Link to={'/contacto'} className="footer-link">{traducir('FOOTER.CONTACT')}</Link>
+                <Link to={'/acerca'} className="footer-link">{traducir('FOOTER.ABOUT')}</Link>
             </div>
         </footer>
     )
