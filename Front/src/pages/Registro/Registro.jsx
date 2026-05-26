@@ -168,121 +168,119 @@ function Registro() {
   return (
     <div className="contenedorRegistro">
         {cargando && <Spinner />}
-        <h1>{traducir('AUTH.REGISTER')}</h1>
-        <div className="contenedorFormulario">
-            <form
-                id="formRegistro"
-                className="divFormulario"
-                onSubmit={handleSubmit}
-            >
-                <div className="input-container">
-                    <input
-                        type="text"
-                        name="nombre"
-                        className="input-form"
-                        id="nombreCrearCuenta"
-                        placeholder={traducir('AUTH.NAME')}
-                        value={formData.nombre}
-                        onChange={handleChange}
-                    />
-                    <div className='error'>
-                        {traducirError(errores.nombre, traducir)}
-                    </div>
+        <h1 className="tituloRegistro">{traducir('AUTH.REGISTER')}</h1>
+        <form
+            id="formRegistro"
+            className="divFormulario"
+            onSubmit={handleSubmit}
+        >
+            <div className="input-container">
+                <input
+                    type="text"
+                    name="nombre"
+                    className="input-form"
+                    id="nombreCrearCuenta"
+                    placeholder={traducir('AUTH.NAME')}
+                    value={formData.nombre}
+                    onChange={handleChange}
+                />
+                <div className='error'>
+                    {traducirError(errores.nombre, traducir)}
                 </div>
-                <div className="input-container">
-                    <input
-                        type="email"
-                        name="email"
-                        className="input-form"
-                        id="correoCrearCuenta"
-                        placeholder={traducir('AUTH.EMAIL')}
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    <div className='error'>
-                        {traducirError(errores.email, traducir)}
-                    </div>
+            </div>
+            <div className="input-container">
+                <input
+                    type="email"
+                    name="email"
+                    className="input-form"
+                    id="correoCrearCuenta"
+                    placeholder={traducir('AUTH.EMAIL')}
+                    value={formData.email}
+                    onChange={handleChange}
+                />
+                <div className='error'>
+                    {traducirError(errores.email, traducir)}
                 </div>
-                <div className="input-container">
-                    <input
-                        type="text"
-                        name="telefono"
-                        className="input-form"
-                        id="telefonoCrearCuenta"
-                        placeholder={traducir('AUTH.PHONE')}
-                        value={formData.telefono}
-                        onChange={handleChange}
-                    />
-                    <div className='error'>
-                        {traducirError(errores.telefono, traducir)}
-                    </div>
+            </div>
+            <div className="input-container">
+                <input
+                    type="text"
+                    name="telefono"
+                    className="input-form"
+                    id="telefonoCrearCuenta"
+                    placeholder={traducir('AUTH.PHONE')}
+                    value={formData.telefono}
+                    onChange={handleChange}
+                />
+                <div className='error'>
+                    {traducirError(errores.telefono, traducir)}
                 </div>
-                <div className="input-container">
-                    <input
-                        type="password"
-                        name="password"
-                        className="input-form"
-                        id="contrasenaCrearCuenta"
-                        placeholder={traducir('AUTH.PASSWORD')}
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                    <div className='error'>
-                        {traducirError(errores.password, traducir)}
-                    </div>
+            </div>
+            <div className="input-container">
+                <input
+                    type="password"
+                    name="password"
+                    className="input-form"
+                    id="contrasenaCrearCuenta"
+                    placeholder={traducir('AUTH.PASSWORD')}
+                    value={formData.password}
+                    onChange={handleChange}
+                />
+                <div className='error'>
+                    {traducirError(errores.password, traducir)}
                 </div>
-                <div className="input-container">
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        className="input-form"
-                        id="repetirContrasena"
-                        placeholder={traducir('AUTH.CONFIRM_PASSWORD')}
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                    />
-                    <div className='error'>
-                        {traducirError(errores.confirmPassword, traducir)}
-                    </div>
+            </div>
+            <div className="input-container">
+                <input
+                    type="password"
+                    name="confirmPassword"
+                    className="input-form"
+                    id="repetirContrasena"
+                    placeholder={traducir('AUTH.CONFIRM_PASSWORD')}
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                />
+                <div className='error'>
+                    {traducirError(errores.confirmPassword, traducir)}
                 </div>
-                <div id="radio">
-                    <input
-                        type="checkbox"
-                        name="aceptaPolitica"
-                        className="input-form"
-                        id="radioAceptarPolitica"
-                        checked={formData.aceptaPolitica}
-                        onChange={handleChange}
-                    />
-                    {traducir('AUTH.ACCEPT_PRIVACY')}
-                    <br/>
-                </div>    
-                <button
-                    type="submit"
-                    className="botonCrearCuenta"
-                    disabled={cargando}
-                >
-                    {cargando
-                            ? traducir('COMMON.LOADING')
-                            : traducir('AUTH.CREATE_ACCOUNT')}
-                </button>
-                {errorServidor && (
-                    <div className="error mensajeFormulario">
-                        {errorServidor}
-                    </div>
-                )}
-
-                {mensajeExito && (
-                    <div className="success mensajeFormulario">
-                        {mensajeExito}
-                    </div>
-                )}
+            </div>
+            <div id="radio">
+                <input
+                    type="checkbox"
+                    name="aceptaPolitica"
+                    className="input-form"
+                    id="radioAceptarPolitica"
+                    checked={formData.aceptaPolitica}
+                    onChange={handleChange}
+                />
+                {traducir('AUTH.ACCEPT_PRIVACY')}
                 <br/>
-            </form>
-            <Link to='/login'>
-                {traducir('AUTH.ALREADY_HAVE_ACCOUNT')}
-            </Link>
-        </div>
+            </div>    
+            <button
+                type="submit"
+                className="botonCrearCuenta"
+                disabled={cargando}
+            >
+                {cargando
+                        ? traducir('COMMON.LOADING')
+                        : traducir('AUTH.CREATE_ACCOUNT')}
+            </button>
+            {errorServidor && (
+                <div className="error mensajeFormulario">
+                    {errorServidor}
+                </div>
+            )}
+
+            {mensajeExito && (
+                <div className="success mensajeFormulario">
+                    {mensajeExito}
+                </div>
+            )}
+            <br/>
+        </form>
+        <Link to='/login'>
+            {traducir('AUTH.ALREADY_HAVE_ACCOUNT')}
+        </Link>
     </div>
   )
 }
