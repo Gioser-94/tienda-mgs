@@ -9,11 +9,11 @@
 }
 
 .seccionPerfil {
-  background: #fff;
-  border-radius: 16px;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 1px solid #f0f0f0;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
 }
@@ -25,20 +25,20 @@
   gap: 1.5rem;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--color-border);
 }
 
 .avatarUsuario {
   width: 70px;
   height: 70px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #0d7dfd, #0b6fe0);
+  border-radius: var(--radius-circle);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.8rem;
   font-weight: 800;
-  color: white;
+  color: var(--color-text-inverse);
   flex-shrink: 0;
 }
 
@@ -51,27 +51,27 @@
 .tituloPerfil {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #2b2f38;
+  color: var(--color-text);
   margin: 0;
 }
 
 .badgeRolPerfil {
   display: inline-block;
   padding: 0.2rem 0.8rem;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 600;
   width: fit-content;
 }
 
 .badgeRolPerfil.cliente {
-  background: #d4edda;
-  color: #155724;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .badgeRolPerfil.admin {
-  background: #cce5ff;
-  color: #004085;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 /* GRID DE DATOS */
@@ -85,15 +85,15 @@
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  background: #f8f9fa;
+  background: var(--color-bg);
   padding: 0.8rem 1rem;
-  border-radius: 8px;
-  border-left: 3px solid #0d7dfd;
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
 }
 
 .etiquetaPerfil {
   font-size: 0.78rem;
-  color: #9a9a9a;
+  color: var(--color-text-muted);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -101,7 +101,7 @@
 
 .valorPerfil {
   font-size: 1rem;
-  color: #2b2f38;
+  color: var(--color-text);
   font-weight: 600;
 }
 
@@ -109,7 +109,7 @@
 .subtituloPerfil {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #2b2f38;
+  color: var(--color-text);
   margin-bottom: 1.5rem;
 }
 
@@ -120,10 +120,10 @@
 }
 
 .tarjetaPedidoPerfil {
-  background: #f8f9fa;
+  background: var(--color-bg);
   border-radius: 10px;
   padding: 1.2rem;
-  border: 1px solid #e9ecef;
+  border: 1px solid var(--color-border);
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
@@ -131,7 +131,7 @@
 }
 
 .tarjetaPedidoPerfil:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-sm);
 }
 
 .cabeceraPedidoPerfil {
@@ -142,31 +142,31 @@
 
 .idPedidoPerfil {
   font-weight: 700;
-  color: #2b2f38;
+  color: var(--color-text);
   font-size: 1rem;
 }
 
 .estadoPedidoPerfil {
   padding: 0.3rem 0.8rem;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 600;
 }
 
-.estado-pendiente  { background: #fff3cd; color: #856404; }
-.estado-procesando { background: #cce5ff; color: #004085; }
-.estado-enviado    { background: #d4edda; color: #155724; }
-.estado-entregado  { background: #d1ecf1; color: #0c5460; }
-.estado-cancelado  { background: #f8d7da; color: #721c24; }
+.estado-pendiente  { background: var(--color-warning-bg); color: var(--color-warning-text); }
+.estado-procesando { background: var(--color-primary-light); color: var(--color-primary); }
+.estado-enviado    { background: var(--color-success-bg); color: var(--color-success-text); }
+.estado-entregado  { background: var(--color-info-bg); color: var(--color-info-text); }
+.estado-cancelado  { background: var(--color-danger-bg); color: var(--color-danger-text); }
 
 .lineaPedidoPerfil {
     display: grid;
     grid-template-columns: 1fr auto auto;
     gap: 1rem;
     font-size: 0.9rem;
-    color: #2b2f38;
+    color: var(--color-text);
     padding: 0.3rem 0;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid var(--color-border);
     align-items: center;
 }
 
@@ -179,27 +179,27 @@
 
 .fechaPedidoPerfil {
   font-size: 0.82rem;
-  color: #9a9a9a;
+  color: var(--color-text-muted);
 }
 
 .totalPedidoPerfil {
   font-weight: 700;
-  color: #0d7dfd;
+  color: var(--color-primary);
   font-size: 1rem;
 }
 
 .sinPedidosPerfil {
-  color: #9a9a9a;
+  color: var(--color-text-muted);
   text-align: center;
   padding: 2rem 0;
   font-size: 0.95rem;
 }
 
 .errorPerfil {
-  color: #721c24;
-  background: #f8d7da;
+  color: var(--color-danger-text);
+  background: var(--color-danger-bg);
   padding: 0.8rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   margin-bottom: 1rem;
 }
 
@@ -207,9 +207,9 @@
   display: inline-block;
   margin-top: 1.5rem;
   padding: 0.8rem 1.5rem;
-  background: linear-gradient(135deg, #0d7dfd, #0b6fe0);
-  color: white;
-  border-radius: 8px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover));
+  color: var(--color-text-inverse);
+  border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 700;
   transition: opacity 0.2s ease;
@@ -220,14 +220,64 @@
   opacity: 0.9;
 }
 
-@media (max-width: 600px) {
-  .tarjetaPerfil {
-    grid-template-columns: 1fr;
-  }
+/* ── RESPONSIVE PERFIL ── */
 
-  .cabeceraUsuario {
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-  }
+/* Tablet */
+@media (max-width: 768px) {
+    .contenedorPerfil {
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    .seccionPerfil {
+        padding: 1.5rem;
+        box-sizing: border-box;
+    }
+
+    .tituloPerfil {
+        font-size: 1.4rem;
+    }
+
+    .lineaPedidoPerfil {
+        grid-template-columns: 1fr auto;
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .seccionPerfil {
+        padding: 1rem;
+    }
+
+    .tarjetaPerfil {
+        grid-template-columns: 1fr;
+    }
+
+    .cabeceraUsuario {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .tituloPerfil {
+        font-size: 1.2rem;
+    }
+
+    .lineaPedidoPerfil {
+        grid-template-columns: 1fr;
+        gap: 0.3rem;
+    }
+
+    .piePedidoPerfil {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+
+    .botonAdmin {
+        width: 100%;
+        text-align: center;
+        box-sizing: border-box;
+    }
 }

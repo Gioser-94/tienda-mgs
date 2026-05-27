@@ -10,7 +10,7 @@
 .tituloAdmin {
   font-size: 2.2rem;
   font-weight: 800;
-  color: #2b2f38;
+  color: var(--color-text);
   margin-bottom: 1.5rem;
 }
 
@@ -18,7 +18,7 @@
 .pestanasAdmin {
   display: flex;
   gap: 0.5rem;
-  border-bottom: 2px solid #cfcfcf;
+  border-bottom: 2px solid var(--color-border);
   margin-bottom: 2rem;
   flex-wrap: wrap;
 }
@@ -29,7 +29,7 @@
   background: none;
   font-size: 1rem;
   font-weight: 600;
-  color: #9a9a9a;
+  color: var(--color-text-muted);
   cursor: pointer;
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
@@ -38,20 +38,20 @@
 }
 
 .pestanaAdmin:hover {
-  color: #2b2f38;
+  color: var(--color-text);
 }
 
 .pestanaAdmin.activa {
-  color: #0d7dfd;
-  border-bottom: 3px solid #0d7dfd;
+  color: var(--color-primary);
+  border-bottom: 3px solid var(--color-primary);
 }
 
 /* ── CONTENIDO ── */
 .contenidoAdmin {
-  background: #f5f5f5;
-  border-radius: 12px;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
   padding: 2rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
   overflow-x: auto;
 }
 
@@ -68,7 +68,7 @@
 .tituloSeccionAdmin {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2b2f38;
+  color: var(--color-text);
   margin: 0;
 }
 
@@ -81,8 +81,8 @@
 }
 
 .tablaAdmin th {
-  background: #2b2f38;
-  color: white;
+  background: var(--color-table-header-bg);
+  color: var(--color-text-inverse);
   padding: 0.8rem 1rem;
   text-align: left;
   font-weight: 600;
@@ -91,13 +91,13 @@
 
 .tablaAdmin td {
   padding: 0.8rem 1rem;
-  border-bottom: 1px solid #cfcfcf;
-  color: #2b2f38;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
   vertical-align: middle;
 }
 
 .tablaAdmin tr:hover td {
-  background: #efefef;
+  background: var(--color-table-hover-bg);
 }
 
 /* ── ACCIONES ── */
@@ -124,30 +124,30 @@
 }
 
 .botonSecundarioAdmin {
-  background: #0d7dfd;
-  color: white;
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
 }
 
 .botonSecundarioAdmin:hover {
-  background: #0b6fe0;
+  background: var(--color-primary-hover);
 }
 
 .botonPeligroAdmin {
-  background: #dc3545;
-  color: white;
+  background: var(--color-danger);
+  color: var(--color-text-inverse);
 }
 
 .botonPeligroAdmin:hover {
-  background: #b02a37;
+  background: var(--color-danger-text);
 }
 
 .botonExitoAdmin {
-  background: #28a745;
-  color: white;
+  background: var(--color-success);
+  color: var(--color-text-inverse);
 }
 
 .botonExitoAdmin:hover {
-  background: #218838;
+  background: var(--color-success-text);
 }
 
 /* ── BADGES ── */
@@ -161,13 +161,13 @@
 }
 
 .badgeRol.admin {
-  background: #cce5ff;
-  color: #004085;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .badgeRol.cliente {
-  background: #d4edda;
-  color: #155724;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .badgeEstado {
@@ -180,25 +180,25 @@
   white-space: nowrap;
 }
 
-.badgeEstado.pendiente  { background: #fff3cd; color: #856404; }
-.badgeEstado.procesando { background: #cce5ff; color: #004085; }
-.badgeEstado.enviado    { background: #d4edda; color: #155724; }
-.badgeEstado.entregado  { background: #d1ecf1; color: #0c5460; }
-.badgeEstado.cancelado  { background: #f8d7da; color: #721c24; }
+.badgeEstado.pendiente  { background: var(--color-warning-bg); color: var(--color-warning-text); }
+.badgeEstado.procesando { background: var(--color-primary-light); color: var(--color-primary); }
+.badgeEstado.enviado    { background: var(--color-success-bg); color: var(--color-success-text); }
+.badgeEstado.entregado  { background: var(--color-info-bg); color: var(--color-info-text); }
+.badgeEstado.cancelado  { background: var(--color-danger-bg); color: var(--color-danger-text); }
 
 /* ── FORMULARIO ── */
 .formularioAdmin {
-  background: #fff;
-  border-radius: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid #cfcfcf;
+  border: 1px solid var(--color-border);
 }
 
 .tituloFormularioAdmin {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #2b2f38;
+  color: var(--color-text);
   margin-bottom: 1.2rem;
 }
 
@@ -223,26 +223,28 @@
 .grupoFormularioAdmin label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #2b2f38;
+  color: var(--color-text);
 }
 
 .grupoFormularioAdmin input,
 .grupoFormularioAdmin select,
 .grupoFormularioAdmin textarea {
   padding: 0.7rem 0.8rem;
-  border: 1px solid #cfcfcf;
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s ease;
   box-sizing: border-box;
   width: 100%;
+  color: var(--color-text);
+  background-color: var(--color-surface);
 }
 
 .grupoFormularioAdmin input:focus,
 .grupoFormularioAdmin select:focus,
 .grupoFormularioAdmin textarea:focus {
-  border-color: #0d7dfd;
+  border-color: var(--color-primary);
 }
 
 .grupoCompleto {
@@ -261,30 +263,32 @@
   width: 50px;
   height: 50px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
 }
 
 /* ── MISC ── */
 .errorAdmin {
-  color: #721c24;
-  background: #f8d7da;
+  color: var(--color-danger-text);
+  background: var(--color-danger-bg);
   padding: 0.8rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
 }
 
 .lineaProductoPedido {
   font-size: 0.85rem;
-  color: #2b2f38;
+  color: var(--color-text);
   padding: 0.1rem 0;
   white-space: nowrap;
 }
 
 .selectEstadoAdmin {
   padding: 0.3rem 0.5rem;
-  border: 1px solid #cfcfcf;
-  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
   font-size: 0.85rem;
   cursor: pointer;
+  color: var(--color-text);
+  background-color: var(--color-surface);
 }
 
 /* ── RESPONSIVE ── */

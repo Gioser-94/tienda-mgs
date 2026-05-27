@@ -8,12 +8,14 @@ import { authService } from '../../services/Auth/authService';
 import LanguageSelector from '../ui/language-selector/LanguageSelector';
 import { productoService } from '../../services/Productos/productoService';
 import { useCart } from '../../context/CartContext';
+import { useTheme } from '../../context/ThemeContext';
 
 function Header() {
     const navigate = useNavigate();
     const { t: traducir } = useTranslation();
     const { usuario, setUsuario, estaLogueado } = useAuth();
     const { contarProductosCarrito } = useCart();
+    const { temaOscuro, toggleTema } = useTheme();
     const [textoBusqueda, setTextoBusqueda] = useState('');
     const [resultados, setResultados] = useState([]);
     const [buscando, setBuscando] = useState(false);
@@ -126,6 +128,10 @@ function Header() {
                             {traducir('NAVBAR.PROFILE')}
                         </Link>
 
+                        <button className="btn-header-theme" onClick={toggleTema}>
+                            {temaOscuro ? '☀️' : '🌙'}
+                        </button>
+
                         <LanguageSelector />
 
                         <Link to="/carrito" className="btn-header-carrito">
@@ -149,6 +155,10 @@ function Header() {
                         <Link to="/registro" className="btn-header-register">
                             {traducir('AUTH.REGISTER')}
                         </Link>
+
+                        <button className="btn-header-theme" onClick={toggleTema}>
+                            {temaOscuro ? '☀️' : '🌙'}
+                        </button>
 
                         <LanguageSelector />
 

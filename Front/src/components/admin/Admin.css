@@ -1,7 +1,7 @@
 .tituloSeccionAdmin {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2b2f38;
+  color: var(--color-text);
   margin-bottom: 1.5rem;
 }
 
@@ -12,8 +12,8 @@
 }
 
 .tablaAdmin th {
-  background: #2b2f38;
-  color: white;
+  background: var(--color-text);
+  color: var(--color-text-inverse);
   padding: 0.8rem 1rem;
   text-align: left;
   font-weight: 600;
@@ -21,12 +21,12 @@
 
 .tablaAdmin td {
   padding: 0.8rem 1rem;
-  border-bottom: 1px solid #cfcfcf;
-  color: #2b2f38;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
 }
 
 .tablaAdmin tr:hover td {
-  background: #efefef;
+  background: var(--color-bg);
 }
 
 .tablaAdmin .celda-precio {
@@ -41,9 +41,9 @@
 .botonSecundarioAdmin {
   padding: 0.4rem 0.8rem;
   border: none;
-  border-radius: 4px;
-  background: #0d7dfd;
-  color: white;
+  border-radius: var(--radius-xs);
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -51,15 +51,15 @@
 }
 
 .botonSecundarioAdmin:hover {
-  background: #0b6fe0;
+  background: var(--color-primary-hover);
 }
 
 .botonPeligroAdmin {
   padding: 0.4rem 0.8rem;
   border: none;
-  border-radius: 4px;
-  background: #dc3545;
-  color: white;
+  border-radius: var(--radius-xs);
+  background: var(--color-danger);
+  color: var(--color-text-inverse);
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -67,15 +67,15 @@
 }
 
 .botonPeligroAdmin:hover {
-  background: #b02a37;
+  background: var(--color-danger-text);
 }
 
 .botonExitoAdmin {
   padding: 0.4rem 0.8rem;
   border: none;
-  border-radius: 4px;
-  background: #28a745;
-  color: white;
+  border-radius: var(--radius-xs);
+  background: var(--color-success);
+  color: var(--color-text-inverse);
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -83,57 +83,57 @@
 }
 
 .botonExitoAdmin:hover {
-  background: #218838;
+  background: var(--color-success-text);
 }
 
 .badgeRol {
   padding: 0.3rem 0.8rem;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 600;
 }
 
 .badgeRol.admin {
-  background: #cce5ff;
-  color: #004085;
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
 .badgeRol.cliente {
-  background: #d4edda;
-  color: #155724;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
 }
 
 .badgeEstado {
   padding: 0.3rem 0.8rem;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   font-size: 0.8rem;
   font-weight: 600;
 }
 
-.badgeEstado.pendiente  { background: #fff3cd; color: #856404; }
-.badgeEstado.procesando { background: #cce5ff; color: #004085; }
-.badgeEstado.enviado    { background: #d4edda; color: #155724; }
-.badgeEstado.entregado  { background: #d1ecf1; color: #0c5460; }
-.badgeEstado.cancelado  { background: #f8d7da; color: #721c24; }
+.badgeEstado.pendiente  { background: var(--color-warning-bg); color: var(--color-warning-text); }
+.badgeEstado.procesando { background: var(--color-primary-light); color: var(--color-primary); }
+.badgeEstado.enviado    { background: var(--color-success-bg); color: var(--color-success-text); }
+.badgeEstado.entregado  { background: var(--color-info-bg); color: var(--color-info-text); }
+.badgeEstado.cancelado  { background: var(--color-danger-bg); color: var(--color-danger-text); }
 
 .errorAdmin {
-  color: #721c24;
-  background: #f8d7da;
+  color: var(--color-danger-text);
+  background: var(--color-danger-bg);
   padding: 0.8rem 1rem;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
 }
 
 .selectEstadoAdmin {
   padding: 0.3rem 0.5rem;
-  border: 1px solid #cfcfcf;
-  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xs);
   font-size: 0.85rem;
   cursor: pointer;
 }
 
 .lineaProductoPedido {
   font-size: 0.85rem;
-  color: #2b2f38;
+  color: var(--color-text);
   padding: 0.1rem 0;
 }
 
@@ -145,17 +145,17 @@
 }
 
 .formularioAdmin {
-  background: #fff;
-  border-radius: 8px;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
   margin-bottom: 2rem;
-  border: 1px solid #cfcfcf;
+  border: 1px solid var(--color-border);
 }
 
 .tituloFormularioAdmin {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #2b2f38;
+  color: var(--color-text);
   margin-bottom: 1.2rem;
 }
 
@@ -174,15 +174,15 @@
 .grupoFormularioAdmin label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #2b2f38;
+  color: var(--color-text);
 }
 
 .grupoFormularioAdmin input,
 .grupoFormularioAdmin select,
 .grupoFormularioAdmin textarea {
   padding: 0.7rem 0.8rem;
-  border: 1px solid #cfcfcf;
-  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s ease;
@@ -191,7 +191,7 @@
 .grupoFormularioAdmin input:focus,
 .grupoFormularioAdmin select:focus,
 .grupoFormularioAdmin textarea:focus {
-  border-color: #0d7dfd;
+  border-color: var(--color-primary);
 }
 
 .grupoCompleto {
@@ -208,5 +208,5 @@
   width: 50px;
   height: 50px;
   object-fit: cover;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
 }
