@@ -1,0 +1,71 @@
+.langSelector {
+  position: relative;
+  display: inline-block;
+}
+
+.langBtn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.langBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: Orbitron, Arial, sans-serif;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+
+.langFlag {
+  width: 18px;
+  height: 12px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.langArrow {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+
+.langDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  background: #0048aa;
+  border-radius: 8px;
+  overflow: hidden;
+  z-index: 999;
+  min-width: 80px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.langOption {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: white;
+  font-family: Orbitron, Arial, sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.langOption:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.langOptionActivo {
+  background: rgba(255, 255, 255, 0.2);
+  font-weight: 700;
+}

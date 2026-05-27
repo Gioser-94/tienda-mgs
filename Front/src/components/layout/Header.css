@@ -8,6 +8,12 @@
     gap: 20px;
 }
 
+.usuario {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .logo {
     display: flex;
     align-items: center;
