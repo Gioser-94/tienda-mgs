@@ -85,6 +85,13 @@
   --color-footer-bg:      #010409;
   --color-footer-text:    #8b949e;
 
+  /* SOMBRAS */
+
+  --shadow-sm:  0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md:  0 2px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg:  0 4px 20px rgba(0, 0, 0, 0.5);
+
+
   /* TABLA */
   --color-table-header-bg:   #1c2128;
   --color-table-hover-bg:    #1f2937;
