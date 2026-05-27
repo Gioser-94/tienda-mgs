@@ -1,17 +1,16 @@
 .language-selector {
     background: rgba(255, 255, 255, 0.12);
-    color: white;
+    color: var(--color-text-inverse);
     border: none;
     padding: 7px 10px;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    font-family: Orbitron, Arial, sans-serif;
     font-size: 0.9rem;
 }
 
 .language-selector option {
-    background: #0048aa;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
 }
 
 .language-selector:hover {

@@ -156,8 +156,8 @@ function ProductoDetalle() {
 }
           </ul>
 
-          <button className="btn-carrito" onClick={handleAddCarrito}>🛒 {traducir("PRODUCT.ADD_TO_CART")}</button>
           <button className="btn-volver" onClick={() => navigate(-1)}>⬅ {traducir("COMMON.BACK")}</button>
+          <button className="btn-carrito" onClick={handleAddCarrito}>🛒 {traducir("PRODUCT.ADD_TO_CART")}</button>
           {/* navigate(-1) al pulsar el boton vuelve a la ultima pagina vista */}
         </div>
       </div>

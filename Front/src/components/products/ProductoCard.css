@@ -1,8 +1,8 @@
 .producto-card {
-    background: white;
+    background: var(--color-surface);
     padding: 15px;
     border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
     text-align: center;
 }
 
@@ -13,23 +13,23 @@
 
 .producto-nombre {
   font-size: 1rem;
-  color: black;
+  color: var(--color-text);
   margin-bottom: 4px;
 }
 
 .producto-precio {
   font-weight: bold;
-  color: #193eb8;
+  color: var(--color-primary);
 }
 
 .producto-precio-original {
-  color: #999;
+  color: var(--color-text-muted);
   font-size: 0.9rem;
 }
 
 .producto-precio-descuento {
   font-weight: bold;
-  color: #008000;
+  color: var(--color-success);
   font-size: 1rem;
 }
 

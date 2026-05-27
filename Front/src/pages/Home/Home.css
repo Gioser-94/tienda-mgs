@@ -12,37 +12,43 @@
   display: grid;
   gap: 20px;
   padding: 20px;
-  max-width: 1400px;   /* opcional, para que no quede muy comprimido */
+  max-width: 1400px;
   margin: 0 auto;
   grid-template-columns: repeat(6, 1fr);
 }
 
-/* Tablets grandes o pantallas medianas */
-@media (max-width: 1200px) {
-  .grid-productos {
-    grid-template-columns: repeat(4, 1fr);
-  }
+/* Desktop */
+@media (max-width: 1280px) {
+    .grid-productos {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
-/* Tablets pequeñas */
-@media (max-width: 900px) {
-  .grid-productos {
-    grid-template-columns: repeat(3, 1fr);
-  }
+/* Laptop */
+@media (max-width: 1024px) {
+    .grid-productos {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
-/* Móviles grandes */
-@media (max-width: 700px) {
-  .grid-productos {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Tablet */
+@media (max-width: 768px) {
+    .home {
+        padding: 0 12px;
+    }
+
+    .grid-productos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 12px;
+    }
 }
 
-/* Móviles pequeños */
-@media (max-width: 500px) {
-  .grid-productos {
-    grid-template-columns: repeat(1, 1fr);
-  }
+/* Mobile */
+@media (max-width: 480px) {
+    .grid-productos {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 .homeHeader {

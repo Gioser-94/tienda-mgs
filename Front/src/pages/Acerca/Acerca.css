@@ -21,15 +21,40 @@
 }
 
 .miembro {
-  background: #f8f8f8;
+  background: var(--color-bg);
   padding: 20px;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   flex: 1;
   min-width: 250px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.15);
+  box-shadow: var(--shadow-sm);
 }
 
 .miembro h3 {
   margin-bottom: 10px;
-  color: #0048aa;
+  color: var(--color-primary);
+}
+
+/* ── RESPONSIVE ACERCA ── */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .acerca {
+        padding: 16px;
+        margin: 20px auto;
+    }
+
+    .acerca-info p {
+        font-size: 1rem;
+    }
+
+    .equipo-grid {
+        gap: 16px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .miembro {
+        min-width: 100%;
+    }
 }

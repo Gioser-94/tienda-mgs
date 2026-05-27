@@ -4,9 +4,9 @@
   max-width: 600px;
   margin: 20px auto;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   height: 220px;        
-  background: #fff;     
+  background: var(--color-surface);     
 }
 
 .carousel-track {
@@ -31,11 +31,11 @@
   top: 50%;
   transform: translateY(-50%);
   background: rgba(0, 0, 0, 0.45);
-  color: #fff;
+  color: var(--color-text-inverse);
   border: none;
   width: 32px;
   height: 32px;
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   cursor: pointer;
   display: flex;
   align-items: center;
