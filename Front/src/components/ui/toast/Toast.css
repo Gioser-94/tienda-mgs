@@ -35,20 +35,20 @@
 }
 
 .toast--success {
-    background: var(--color-text);
-    color: var(--color-text-inverse);
+    background: var(--color-surface);
+    color: var(--color-text);
     border-left: 4px solid var(--color-success);
 }
 
 .toast--error {
-    background: var(--color-text);
-    color: var(--color-text-inverse);
+    background: var(--color-surface);
+    color: var(--color-text);
     border-left: 4px solid var(--color-danger);
 }
 
 .toast--info {
-    background: var(--color-text);
-    color: var(--color-text-inverse);
+    background: var(--color-surface);
+    color: var(--color-text);
     border-left: 4px solid var(--color-primary);
 }
 
@@ -68,5 +68,5 @@
 }
 
 .toast-cerrar:hover {
-    color: var(--color-text-inverse);
+    color: var(--color-text);
 }
