@@ -3,30 +3,30 @@
   display: inline-block;
 }
 
-.langBtn:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
 .langBtn {
   display: flex;
   align-items: center;
   gap: 6px;
   background: rgba(255, 255, 255, 0.12);
-  color: white;
+  color: var(--color-text-inverse);
   border: none;
   padding: 7px 10px;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-family: Orbitron, Arial, sans-serif;
   font-size: 0.9rem;
   transition: background 0.2s ease;
 }
 
+.langBtn:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
 .langFlag {
   width: 18px;
   height: 12px;
   object-fit: cover;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }
 
 .langArrow {
@@ -38,12 +38,12 @@
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
-  background: #0048aa;
-  border-radius: 8px;
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
   overflow: hidden;
   z-index: 999;
   min-width: 80px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .langOption {
@@ -54,7 +54,7 @@
   padding: 8px 12px;
   background: none;
   border: none;
-  color: white;
+  color: var(--color-text-inverse);
   font-family: Orbitron, Arial, sans-serif;
   font-size: 0.85rem;
   cursor: pointer;
