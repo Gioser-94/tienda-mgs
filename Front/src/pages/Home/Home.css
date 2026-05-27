@@ -62,13 +62,13 @@
 
 .selectCategoria {
   padding: 0.6rem 1rem;
-  border: 1px solid #cfcfcf;
-  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-size: 0.95rem;
   cursor: pointer;
   outline: none;
-  background: #fff;
-  color: #2b2f38;
+  background: var(--color-surface);
+  color: var(--color-text);
   font-weight: 500;
   transition: border-color 0.2s ease;
 }
