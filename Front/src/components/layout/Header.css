@@ -1,12 +1,11 @@
 .header {
-    background: #0048aa;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-surface);
     padding: 12px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    font-family: Orbitron, Arial, sans-serif;
 }
 
 .usuario {
@@ -39,17 +38,19 @@
 #input-busqueda {
     width: 100%;
     padding: 6px 10px;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
     border: none;
+    background-color: var(--color-surface);
+    color: var(--color-text);
 }
 
 #btn-buscar {
     padding: 6px 10px;
     border: none;
-    background: white;
-    color: black;
+    background: var(--color-surface);
+    color: var(--color-text);
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: var(--radius-xs);
 }
 
 .resultados-busqueda {
@@ -57,10 +58,10 @@
     top: 38px;
     left: 0;
     right: 0;
-    background: white;
-    color: black;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xs);
     max-height: 250px;
     overflow-y: auto;
     z-index: 100;
@@ -72,26 +73,26 @@
 }
 
 .resultado-item:hover {
-    background: #f0f0f0;
+    background: var(--color-bg);
 }
 
 .resultado-enlace {
     text-decoration: none;
-    color: black;
+    color: var(--color-text);
 }
 
 .btn-header-profile,
 .btn-header-carrito,
 .btn-header-logout,
 .btn-header-login,
-.btn-header-register {
+.btn-header-register,
+.btn-header-theme {
     background: rgba(255, 255, 255, 0.12);
-    color: white;
+    color: var(--color-text-inverse);
     border: none;
     padding: 7px 10px;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     cursor: pointer;
-    font-family: Orbitron, Arial, sans-serif;
     font-size: 0.9rem;
     text-decoration: none;
     margin: 0 5px;
@@ -101,6 +102,91 @@
 .btn-header-carrito:hover,
 .btn-header-logout:hover,
 .btn-header-login:hover,
-.btn-header-register:hover {
+.btn-header-register:hover,
+.btn-header-theme:hover {
     background: rgba(255, 255, 255, 0.25);
+}
+
+/* ── RESPONSIVE HEADER ── */
+
+/* Desktop */
+@media (max-width: 1280px) {
+    .usuario span {
+        display: none;
+    }
+}
+
+/* Laptop */
+@media (max-width: 1024px) {
+    .logo h1 {
+        font-size: 1rem;
+    }
+
+    .buscador {
+        min-width: 200px;
+        max-width: 280px;
+    }
+
+    .usuario {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: flex-end;
+    }
+
+    .btn-header-profile,
+    .btn-header-carrito,
+    .btn-header-logout,
+    .btn-header-login,
+    .btn-header-register,
+    .btn-header-theme {
+        font-size: 0.78rem;
+        padding: 5px 7px;
+        margin: 0;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .header {
+        flex-wrap: wrap;
+        padding: 10px 16px;
+        gap: 10px;
+    }
+
+    .logo h1 {
+        font-size: 1rem;
+    }
+
+    .buscador {
+        order: 3;
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .usuario {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .logo h1 {
+        display: none;
+    }
+
+    .btn-header-profile,
+    .btn-header-logout,
+    .btn-header-login,
+    .btn-header-register {
+        font-size: 0.8rem;
+        padding: 6px 8px;
+    }
 }

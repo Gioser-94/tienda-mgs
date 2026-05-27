@@ -2,9 +2,9 @@
   max-width: 400px;
   margin: 2rem auto;
   padding: 1.5rem;
-  border-radius: 8px;
-  background: #f5f5f5;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-sm);
 }
 
 .tituloRegistro {
@@ -20,37 +20,74 @@
 }
 
 .input-form {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 100%;
+  color: var(--color-text);
+  box-sizing: border-box;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-container {
   margin-block: 6px;
 }
 
+.input-container label {
+    font-size: 0.95rem;
+    color: var(--color-text);
+    font-weight: 500;
+    margin-bottom: 4px;
+    display: block;
+}
+
 .botonCrearCuenta {
   width: 100%;
   padding: 0.75rem;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--color-primary);
+  color: var(--color-text-inverse);
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-xs);
   font-weight: bold;
   cursor: pointer;
   margin-top: 0.5rem;
 }
 
 .botonCrearCuenta:disabled {
-  background-color: #999;
+  background-color: var(--color-text-muted);
   cursor: not-allowed;
 }
 
 #radioAceptarPolitica {
     margin-right: 1rem;
     margin-bottom: 1rem;
+    cursor: pointer;
 }
 
 .success {
-    color: green;
+    color: var(--color-success);
+}
+
+/* ── RESPONSIVE REGISTRO ── */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .contenedorRegistro {
+        max-width: 320px;
+        margin: 1.5rem auto;
+        padding: 1.2rem 1.2rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .contenedorRegistro {
+        padding: 1rem;
+        margin: 1rem;
+        width: auto;
+        max-width: 100%;
+    }
 }

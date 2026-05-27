@@ -175,6 +175,7 @@ function Registro() {
             onSubmit={handleSubmit}
         >
             <div className="input-container">
+                <label htmlFor="nombreCrearCuenta">{traducir('AUTH.NAME')}</label>
                 <input
                     type="text"
                     name="nombre"
@@ -189,6 +190,7 @@ function Registro() {
                 </div>
             </div>
             <div className="input-container">
+                <label htmlFor="correoCrearCuenta">{traducir('AUTH.EMAIL')}</label>
                 <input
                     type="email"
                     name="email"
@@ -203,6 +205,7 @@ function Registro() {
                 </div>
             </div>
             <div className="input-container">
+                <label htmlFor="telefonoCrearCuenta">{traducir('AUTH.PHONE')}</label>
                 <input
                     type="text"
                     name="telefono"
@@ -217,6 +220,7 @@ function Registro() {
                 </div>
             </div>
             <div className="input-container">
+                <label htmlFor="contrasenaCrearCuenta">{traducir('AUTH.PASSWORD')}</label>
                 <input
                     type="password"
                     name="password"
@@ -231,6 +235,7 @@ function Registro() {
                 </div>
             </div>
             <div className="input-container">
+                <label htmlFor="repetirContrasena">{traducir('AUTH.CONFIRM_PASSWORD')}</label>
                 <input
                     type="password"
                     name="confirmPassword"
@@ -248,12 +253,13 @@ function Registro() {
                 <input
                     type="checkbox"
                     name="aceptaPolitica"
-                    className="input-form"
                     id="radioAceptarPolitica"
                     checked={formData.aceptaPolitica}
                     onChange={handleChange}
                 />
-                {traducir('AUTH.ACCEPT_PRIVACY')}
+                <label htmlFor="radioAceptarPolitica">
+                    {traducir('AUTH.ACCEPT_PRIVACY')}
+                </label>
                 <br/>
             </div>    
             <button
@@ -278,7 +284,7 @@ function Registro() {
             )}
             <br/>
         </form>
-        <Link to='/login'>
+        <Link to='/login' className="linkRegistroLogin">
             {traducir('AUTH.ALREADY_HAVE_ACCOUNT')}
         </Link>
     </div>

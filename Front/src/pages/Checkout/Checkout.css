@@ -16,20 +16,21 @@
     gap: 8px;
     flex: 1;
     padding: 10px 16px;
-    border-radius: 8px;
-    border: 2px solid #ddd;
-    color: #aaa;
+    border-radius: var(--radius-md);
+    border: 2px solid var(--color-border);
+    color: var(--color-text-muted);
     font-weight: 500;
+    min-width: 0;
 }
 
 .checkout-step--activo {
-    border-color: #111;
-    color: #111;
+    border-color: var(--color-text);
+    color: var(--color-text);
 }
 
 .checkout-step--completado {
-    border-color: #4caf50;
-    color: #4caf50;
+    border-color: var(--color-success);
+    color: var(--color-success);
 }
 
 .checkout-step-numero {
@@ -51,7 +52,10 @@
     align-items: flex-start;
 }
 
-.checkout-main { flex: 1; }
+.checkout-main {
+    flex: 1;
+    min-width: 0; 
+}
 
 .checkout-formulario h2 { margin-bottom: 20px; }
 
@@ -69,27 +73,31 @@
 
 .checkout-grupo input {
     padding: 10px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-surface);
+    color: var(--color-text);  
 }
 
 .checkout-grupo input:focus {
     outline: none;
-    border-color: #333;
+    border-color: var(--color-text);
 }
 
 .checkout-fila { display: flex; gap: 16px; }
 .checkout-fila .checkout-grupo { flex: 1; }
 
 .checkout-aviso-simulado {
-    background: #fff8e1;
+    background: var(--color-warning-bg);
     border: 1px solid #ffe082;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     padding: 10px 14px;
     font-size: 14px;
     margin-bottom: 20px;
-    color: #5d4037;
+    color: var(--color-warning-text);
 }
 
 .checkout-navegacion {
@@ -103,15 +111,24 @@
 .checkout-btn-siguiente,
 .checkout-btn-confirmar {
     padding: 12px 24px;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     font-size: 15px;
     cursor: pointer;
     border: none;
 }
 
-.checkout-btn-volver { background: #f0f0f0; color: #333; }
-.checkout-btn-siguiente { background: #111; color: #fff; }
-.checkout-btn-confirmar { background: #4caf50; color: #fff; }
+.checkout-btn-volver {
+    background: var(--color-btn-secondary);
+    color: var(--color-text);
+}
+.checkout-btn-siguiente { 
+    background: var(--color-primary);
+    color: var(--color-text-inverse);
+}
+.checkout-btn-confirmar {
+    background: var(--color-success);
+    color: var(--color-text-inverse);
+}
 
 .checkout-btn-volver:disabled,
 .checkout-btn-siguiente:disabled,
@@ -123,11 +140,13 @@
 .checkout-resumen {
     width: 300px;
     flex-shrink: 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
     padding: 20px;
     position: sticky;
     top: 24px;
+    min-width: 0;
+    box-sizing: border-box; 
 }
 
 .checkout-resumen h2 { margin-bottom: 16px; font-size: 18px; }
@@ -146,14 +165,74 @@
     justify-content: space-between;
     font-size: 14px;
     gap: 8px;
+    min-width: 0;
 }
 
-.checkout-resumen-nombre { flex: 1; }
+.checkout-resumen-nombre {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
 
 .checkout-resumen-total {
     display: flex;
     justify-content: space-between;
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--color-border);
     padding-top: 12px;
     font-size: 16px;
+}
+
+/* ── RESPONSIVE CHECKOUT ── */
+
+/* Tablet */
+@media (max-width: 768px) {
+    .checkout-container {
+        padding: 16px;
+    }
+
+    .checkout-contenido {
+        flex-direction: column;
+    }
+
+    .checkout-resumen {
+        width: 100%;
+        position: static;
+    }
+
+    .checkout-step-nombre {
+        font-size: 0.85rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .checkout-main {
+        width: 100%;
+    }
+
+    .checkout-stepper {
+        gap: 4px;
+    }
+
+    .checkout-step {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+    }
+
+    .checkout-fila {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .checkout-navegacion {
+        flex-direction: column;
+    }
+
+    .checkout-btn-volver,
+    .checkout-btn-siguiente,
+    .checkout-btn-confirmar {
+        width: 100%;
+        text-align: center;
+    }
 }
